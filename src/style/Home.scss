@@ -1,0 +1,135 @@
+.backgroundAll {
+    height: 100%;
+    width: 100%;
+}
+
+.logoAlignment {
+    height: 20%;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    resize-mode: contain;
+    width: 265px;
+}
+
+// .loginSignUp {
+//     z-index: 1;
+//     position: absolute;
+//     width: 100%;
+//     height: 50px;
+//     bottom: 50px;
+//     align-items: center;
+//     justify-content: center;
+// }
+// .loginSignUpAlignment {
+//     width: 80%;
+//     height: 100%;
+//     flex: 1;
+//     flex-direction: row;
+// }
+// .login {
+//     width: 50%;
+//     height: 100%;
+//     align-items: center;
+//     justify-content: center;
+// }
+// .loginTO {
+//     width: 90%;
+//     height: 100%;
+//     align-items: center;
+//     justify-content: center;
+//     border-radius: 10px;
+//     border: 4px solid white;
+// }
+// .signup {
+//     width: 50%;
+//     height: 100%;
+//     align-items: center;
+//     justify-content: center;
+//     color: white;
+//     font-weight: 800;
+// }
+// .signupTO {
+//     width: 90%;
+//     height: 100%;
+//     align-items: center;
+//     justify-content: center;
+//     border-radius: 10px;
+//     border: 4px solid white;
+// }
+// .registrationTitle {
+//     color: white;
+//     font-weight: 600;
+//     font-size: 18;
+// }
+// BOTTOM MENU CREATED TO EXAMPLE 
+.bottomMenu {
+    position: absolute;
+    bottom: 20;
+    color: #222;
+    height: 70;
+    width: 100%;
+    flex: 1;
+    flex-direction: row;
+}
+
+.menuElement {
+    flex: 1;
+    align-items: center;
+}
+
+.menuIcon {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuIconActive {
+    flex: 1;
+    align-items: center;
+    border: 1px solid #DDD;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+
+/* 
+
+
+
+
+  bottomMenu: {
+    position: "absolute",
+    bottom: 20,
+    color: "#222222",
+    height: 70,
+    width: '100%',
+    flex: 1,
+    flexDirection: "row"
+  },
+  menuElement: {
+    flex: 1,
+    alignItems: "center"
+    
+  },
+  menuIcon: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  menuIconActive: {
+    flex: 1,
+    alignItems: "center",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#DDD",
+    paddingRight: 16,
+    paddingLeft: 16
+  }
+
+
+
+
+*/

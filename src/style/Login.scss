@@ -1,0 +1,189 @@
+.container {
+    flex: 1;
+    // align-items: center;
+    // justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.gradientBackground {
+    flex: 2;
+    width: 100%;
+    height: 100%;
+}
+
+.solidBackground {
+    flex: 3;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    align-items: center;
+}
+
+.logoAlignment {
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    resize-mode: contain;
+    width: 265px;
+}
+
+.popupBackground {
+    width: 85%;
+    height: auto;
+    max-height: 85%;
+    background-color: #f2f2f2;
+    margin-top: -3rem;
+    align-items: center;
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+}
+
+.inputView {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    height: 50px;
+    border: 1px solid #DDD;
+    background-color: #e4e4e4;
+    border-radius: 8px;
+    padding-left: 12px;
+    padding-right: 18px;
+    margin: 25px 10px 10px 10px;
+}
+
+.input {
+    font-size: 14px;
+    font-weight: 600;
+    color: #424242;
+    width: 90%;
+    height: 100%;
+}
+
+.passwordView {
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.eyeIcon {
+    display: flex;
+    align-items: center;
+}
+
+.forgetPasswordView {
+    display: flex;
+    width: 100%;
+    height: auto;
+    align-items: flex-end;
+}
+
+.forgetPassword {
+    color: #ff3f34;
+    font-size: 12px;
+    margin-right: 20px;
+    text-decoration: underline;
+    text-decoration-color: #ff3f34;
+}
+
+.loginButtonView {
+    width: 90%;
+    height: 40px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.loginButton {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.signupTextView {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.signupTextTO {
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.signupText {
+    color: #e22218;
+    font-weight: 600;
+    margin-left: 3px;
+    font-size: 14px;
+}
+
+.signupContainer {
+    position: absolute;
+    width: 100%;
+    height: 68%;
+    background-color: #ffffff;
+    bottom: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signupViewAlignment {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.signupInputView {
+    margin: 5px 0 0 0;
+}
+
+.closeButtonView {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    margin-top: 35px;
+    margin-right: 25px;
+}
+
+.signupButtonView {
+    width: 90%;
+    height: 40px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.signupButton {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+}
