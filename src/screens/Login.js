@@ -10,6 +10,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Animated,
+  Alert,
   Appearance
 } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
@@ -57,8 +58,35 @@ export default class Login extends Component {
       }).start();
   }
 
-  signUp = () => {
+  signUp = async () => {
 
+    const newUserInfos = await fetch('http://localhost:3000/users/signup',{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userFullName: this.state.signUpFullName,
+        userEmail: this.state.signUpMail,
+        userStatus: 1,
+        userActivity: true,
+        userPassword: this.state.signUpPassword
+      })
+      }).then(res =>{
+        Alert.alert('Finally', `${res.json()}`,[
+          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+        ])
+      }).catch(err=> {
+        console.log('error', err)
+      })
+    if(newUserInfos.errorCode === 1001){
+      Alert.alert('Email Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
+        {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+      ])
+    }else if(newUserInfos.errorCode === 1005){
+      Alert.alert('Sign Up Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
+        {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+      ])
+    }
+    
   }
 
   render() {
