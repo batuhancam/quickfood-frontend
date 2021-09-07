@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Animated,
   Alert,
+  AsyncStorage,
   Appearance
 } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,6 +24,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Intro from '../components/Intro/Intro'
 import SearchInput from "../components/SearchInput/SearchInput";
 import styles from '../style/Login.scss'
+import { thisExpression } from "@babel/types";
 
 export default class Login extends Component {
 
@@ -60,31 +62,38 @@ export default class Login extends Component {
 
   signUp = async () => {
 
-    const newUserInfos = await fetch('http://localhost:3000/users/signup',{
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        userFullName: this.state.signUpFullName,
-        userEmail: this.state.signUpMail,
-        userStatus: 1,
-        userActivity: true,
-        userPassword: this.state.signUpPassword
-      })
-      }).then(res =>{
-        Alert.alert('Finally', `${res.json()}`,[
-          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
-        ])
-      }).catch(err=> {
-        console.log('error', err)
-      })
-    if(newUserInfos.errorCode === 1001){
-      Alert.alert('Email Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
-        {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
-      ])
-    }else if(newUserInfos.errorCode === 1005){
-      Alert.alert('Sign Up Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
-        {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
-      ])
+    if(this.state.signUpFullName != null && this.state.signUpMail != null && this.state.signUpPassword != null && this.state.signUpPasswordConfirm!=null){
+      const newUserInfos = await fetch('http://localhost:3000/users/signup',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userFullName: this.state.signUpFullName,
+          userEmail: this.state.signUpMail,
+          userStatus: 1,
+          userActivity: true,
+          userPassword: this.state.signUpPassword
+        })
+        }).then(res =>{
+          AsyncStorage.setItem('loginAuth', '1')
+          // AsyncStorage.setItem('loginUser', res._id)
+          return res.json();
+        }).then(res => {
+          AsyncStorage.setItem('userID', res._id)
+        }).catch(err=> {
+          console.log('error', err)
+        });
+      
+      if(newUserInfos){
+        if(newUserInfos.errorCode === 1001){
+          Alert.alert('Email Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
+            {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+          ]);
+        }else if(newUserInfos.errorCode === 1005){
+          Alert.alert('Sign Up Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
+            {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+          ]);
+        }
+      }
     }
     
   }

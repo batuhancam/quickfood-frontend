@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+import { useEffect,useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
@@ -8,6 +10,7 @@ import Login from '../src/screens/Login'
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabBarIcon from '../src/components/Icon/TabBarIcon';
+import { isArgumentPlaceholder } from '@babel/types';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -16,8 +19,13 @@ export default function Navigator({navigation, route}) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
+  const [loginAuth, setLoginAuth] = useState(0)
+  useEffect( async() => {
+    // Local storage codes will come here
+
+    setLoginAuth(await AsyncStorage.getItem('loginAuth'))
+  })
   
- 
   return (
       <BottomTab.Navigator initialRouteName='Login' screenOptions={{headerShown: false}} 
       >
@@ -67,23 +75,46 @@ export default function Navigator({navigation, route}) {
             />
           }}
         />
-        <BottomTab.Screen
-          name="Login"
+        {console.log(loginAuth)}
+        {
+          loginAuth == '0' ?
+            <BottomTab.Screen
+            name="Login"
+            component={Login}
+            options={{
+              title: 'Login',  
+              tabBarActiveTintColor:'#ff3f34',
+              tabBarInactiveTintColor:'#a0a0a0',
+              tabBarShowLabel: false,
+              tabBarIcon: (focused) => 
+              {
+              return <TabBarIcon
+                name={focused.focused ? 'account-circle' : 'account-circle-outline'}
+                focused={focused}
+                iconStyle={{marginRight: 0}}
+              />}
+            }}
+          />
+          :
+          <BottomTab.Screen
+          name="Profile"
           component={Login}
           options={{
-            title: 'Login',  
+            title: 'Profile',  
             tabBarActiveTintColor:'#ff3f34',
             tabBarInactiveTintColor:'#a0a0a0',
             tabBarShowLabel: false,
             tabBarIcon: (focused) => 
             {
             return <TabBarIcon
-              name={focused.focused ? 'account-circle' : 'account-circle-outline'}
+              name={focused.focused ? 'account-tie' : 'account-tie-outline'}
               focused={focused}
               iconStyle={{marginRight: 0}}
             />}
           }}
         />
+        }
+        
       </BottomTab.Navigator>
   );
 }
