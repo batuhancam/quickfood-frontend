@@ -24,7 +24,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Intro from '../components/Intro/Intro'
 import SearchInput from "../components/SearchInput/SearchInput";
 import styles from '../style/Login.scss'
-import { thisExpression } from "@babel/types";
 
 export default class Login extends Component {
 
@@ -35,6 +34,8 @@ export default class Login extends Component {
       signUpFullName: "",
       signUpPassword: "",
       signUpPasswordConfirm: "",
+      userEmail: "",
+      userPassword: "",
       eyeToggle: false,
       myText: 'I\'m ready to get swiped!',
       gestureName: 'none',
@@ -60,43 +61,92 @@ export default class Login extends Component {
       }).start();
   }
 
+  login = async() => {
+    if(this.state.userEmail != null && this.state.userPassword != null) {
+      const user = await fetch('http://localhost:3000/users/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          userEmail: this.state.userEmail,
+          userPassword: this.state.userPassword
+        })
+      }).then(res=> {
+        return res.json()
+      }).catch(err => {
+        console.log(err)
+      })
+      if(!user.errorCode){
+        console.log(user)
+        await AsyncStorage.setItem('loginAuth', '1')
+        await AsyncStorage.setItem('userID', user[0]._id)
+        this.props.navigation.navigate('Home')
+      }else{
+        Alert.alert('Error', `${user.message}\nError Code: ${user.errorCode}`,[
+          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+        ]);
+      }
+    }else{
+      Alert.alert('Missing Field(s)', `Please make sure you fill in all fields!`,[
+        {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+      ]);
+    }
+  }
+
   signUp = async () => {
 
-    if(this.state.signUpFullName != null && this.state.signUpMail != null && this.state.signUpPassword != null && this.state.signUpPasswordConfirm!=null){
-      const newUserInfos = await fetch('http://localhost:3000/users/signup',{
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userFullName: this.state.signUpFullName,
-          userEmail: this.state.signUpMail,
-          userStatus: 1,
-          userActivity: true,
-          userPassword: this.state.signUpPassword
-        })
-        }).then(res =>{
-          AsyncStorage.setItem('loginAuth', '1')
-          // AsyncStorage.setItem('loginUser', res._id)
-          return res.json();
-        }).then(res => {
-          AsyncStorage.setItem('userID', res._id)
-        }).catch(err=> {
-          console.log('error', err)
-        });
-      
-      if(newUserInfos){
-        if(newUserInfos.errorCode === 1001){
-          Alert.alert('Email Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
-            {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
-          ]);
-        }else if(newUserInfos.errorCode === 1005){
-          Alert.alert('Sign Up Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
+    if(this.state.signUpFullName != "" && this.state.signUpMail != "" && this.state.signUpPassword != "" && this.state.signUpPasswordConfirm!=""){
+      if(this.state.signUpPasswordConfirm != this.state.signUpPassword){
+        Alert.alert('Unmatch Passwords ', `Please make sure passwords are same!`,[
+          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+        ]);
+      }else{
+        if(this.validate(this.state.signUpMail)){
+        const newUserInfos = await fetch('http://localhost:3000/users/signup',{
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userFullName: this.state.signUpFullName,
+            userEmail: this.state.signUpMail,
+            userStatus: 1,
+            userActivity: true,
+            userPassword: this.state.signUpPassword
+          })
+          }).then(res =>{
+            return res.json();
+          })
+          .catch(err=> {
+            console.log('error', err)
+          });
+        }
+        else{
+          Alert.alert('Email Error', `The email you entered is not in the correct format!`,[
             {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
           ]);
         }
+        
+        if(!newUserInfos.errorCode){
+          await AsyncStorage.setItem('loginAuth', '1')
+          await AsyncStorage.setItem('userID', newUserInfos._id)
+          this.props.navigation.navigate('Home')   
+        }else{
+          Alert.alert('Error', `${newUserInfos.message}\nError Code: ${newUserInfos.errorCode}`,[
+            {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+          ]);
+          
+        }
       }
-    }
+    }else{
+        Alert.alert('Missing Field(s)', `Please make sure you fill in all fields!`,[
+          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+        ]);
+      }
     
   }
+  validate = (email) => {
+    const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+    return expression.test(String(email).toLowerCase())
+}
 
   render() {
     return (
@@ -116,14 +166,21 @@ export default class Login extends Component {
           <View style={styles.solidBackground}>
             <View style={[styles.popupBackground, embeddedStyle.shadow] }>
              <View style={styles.inputView}>
-                <TextInput autoCapitalize="none" style={styles.input} placeholder="Email" placeholderTextColor='#b1b1b3'/>
+                <TextInput autoCapitalize="none"
+                 style={styles.input}
+                 placeholder="Email"
+                 placeholderTextColor='#b1b1b3'
+                 value={this.state.userEmail} 
+                 onChangeText={(value) => { this.setState({userEmail: value})}}/>
              </View>
              <View style={[styles.inputView, styles.passwordView]}>
                 <TextInput 
                   secureTextEntry={this.state.eyeToggle ? false : true}
                   style={styles.input}
                   placeholder="Password"
-                  placeholderTextColor='#b1b1b3'/>
+                  placeholderTextColor='#b1b1b3'
+                  value={this.state.userPassword} 
+                  onChangeText={(value) => { this.setState({userPassword: value})}}/>
                 <TouchableOpacity style={styles.eyeIcon} onPress={() => this.setState({eyeToggle: !this.state.eyeToggle})}>
                 <Icon
                   name={this.state.eyeToggle ? 'eye' : 'eye-slash'}
@@ -141,7 +198,7 @@ export default class Login extends Component {
                   </Text>
                 </TouchableOpacity>
              </View>
-             <TouchableOpacity style={styles.loginButtonView}>
+             <TouchableOpacity style={styles.loginButtonView} onPress={this.login}>
               <LinearGradient colors={['#fc291d', '#ff3f34']} style={styles.loginButtonView}>
                 <Text style={styles.loginButton}>
                   Login
