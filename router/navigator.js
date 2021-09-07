@@ -7,6 +7,7 @@ import Home from '../src/screens/Home';
 import Intro from '../src/components/Intro/Intro'
 import SearchInput from '../src/components/SearchInput/SearchInput'
 import Login from '../src/screens/Login'
+import Profile from '../src/screens/Profile';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabBarIcon from '../src/components/Icon/TabBarIcon';
@@ -98,7 +99,7 @@ export default function Navigator({navigation, route}) {
           :
           <BottomTab.Screen
           name="Profile"
-          component={Login}
+          component={Profile}
           options={{
             title: 'Profile',  
             tabBarActiveTintColor:'#ff3f34',
