@@ -9,7 +9,7 @@ export default {
                 Home: 'Home',
                 Links: 'links',
                 Login: 'Login',
-                Signup: 'Sign up'
+                Signup: 'Sign up',
             },
         },
     },
