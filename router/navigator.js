@@ -8,13 +8,28 @@ import Intro from '../src/components/Intro/Intro'
 import SearchInput from '../src/components/SearchInput/SearchInput'
 import Login from '../src/screens/Login'
 import Profile from '../src/screens/Profile';
+import AccountInformation from '../src/screens/AccountInformation';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabBarIcon from '../src/components/Icon/TabBarIcon';
 import { isArgumentPlaceholder } from '@babel/types';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const BottomTab = createBottomTabNavigator();
+const Tab = createStackNavigator()
 
+function ProfileNavigator() {
+  return (
+    <Tab.Navigator initialRouteName='Home' screenOptions={{headerShown: false}} >
+      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="AccountInformation" component={AccountInformation} options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerTitle: "Account Information"
+      }} />
+    </Tab.Navigator>
+  );
+}
 
 export default function Navigator({navigation, route}) {
   // Set the header title on the parent stack navigator depending on the
@@ -28,8 +43,7 @@ export default function Navigator({navigation, route}) {
   })
   
   return (
-      <BottomTab.Navigator initialRouteName='Login' screenOptions={{headerShown: false}} 
-      >
+      <BottomTab.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
         <BottomTab.Screen
           name="Home"
           component={Home}
@@ -99,7 +113,7 @@ export default function Navigator({navigation, route}) {
           :
           <BottomTab.Screen
           name="Profile"
-          component={Profile}
+          component={ProfileNavigator}
           options={{
             title: 'Profile',  
             tabBarActiveTintColor:'#ff3f34',

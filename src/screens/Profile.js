@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   View,
+  ScrollView,
   StyleSheet,
   Image,
   TextInput,
@@ -15,11 +16,11 @@ import {
   Appearance
 } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../style/Profile.scss';;
 import Login from "./Login";
 
@@ -45,8 +46,18 @@ export default class Profile extends Component {
         )
         this.setState({user: currentUser})
     }
+    accountInformation = () => {
+      this.props.navigation.navigate('AccountInformation')
+    }
+
+    logout = async () => {
+      AsyncStorage.setItem('loginAuth', '0'); 
+      AsyncStorage.setItem('userID', '0')
+      this.props.navigation.navigate('Home');
+    }
   
     render() {
+      const {user} = this.state;
       return (
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -60,18 +71,67 @@ export default class Profile extends Component {
                             />
                         </View>
                         <View style={styles.accountEmailView}>
-                            <Text style={styles.accountEmail}>{this.state.user.userEmail}</Text>
+                            <Text style={styles.accountEmail}>{user.userEmail}</Text>
                         </View>
                     </LinearGradient>
-                    <View style={styles.solidBackground}>
-                        <TouchableOpacity onPress={() => {
-                            AsyncStorage.setItem('loginAuth', '0'); 
-                            AsyncStorage.setItem('userID', '0')
-                            this.props.navigation.navigate('Home');
-                        }}>
-                            <Text>Logout</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <ScrollView style={styles.solidBackground}>
+                      <TouchableOpacity style={styles.profileListItem} onPress={this.accountInformation}>
+                            <View style={styles.profileListItemLeftAlignment}>
+                              <MaterialCommunityIcons name = 'cog-outline'
+                                  size = { 25 }
+                                  style = {{ marginRight: 0 }}
+                                  color = '#eb4b3b'/>
+                              <Text style={styles.profileListItemTitle}>Account Information</Text>
+                              
+                            </View>
+                              <MaterialCommunityIcons name = 'menu-right'
+                                  size = { 30 }
+                                  style = {{ marginRight: 0 }}
+                                  color = '#e22218' />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.profileListItem} onPress={this.logout}>
+                            <View style={styles.profileListItemLeftAlignment}>
+                              <MaterialCommunityIcons name = 'food'
+                                  size = { 25 }
+                                  style = {{ marginRight: 0 }}
+                                  color = '#eb793b' />
+                              <Text style={styles.profileListItemTitle}>My Foods</Text>
+                              
+                            </View>
+                              <MaterialCommunityIcons name = 'menu-right'
+                                  size = { 30 }
+                                  style = {{ marginRight: 0 }}
+                                  color = '#e22218' />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.profileListItem}>
+                            <View style={styles.profileListItemLeftAlignment}>
+                              <MaterialCommunityIcons name = 'star-outline'
+                                  size = { 25 }
+                                  style = {{ marginRight: 0 }}
+                                  color = '#ebc03b' />
+                              <Text style={styles.profileListItemTitle}>Favorites</Text>
+                              
+                            </View>
+                              <MaterialCommunityIcons name = 'menu-right'
+                                  size = { 30 }
+                                  style = {{ marginRight: 0 }}
+                                  color = '#e22218' />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.profileListItem} onPress={this.logout}>
+                          <View style={styles.profileListItemLeftAlignment}>
+                            <MaterialCommunityIcons name = 'logout'
+                                size = { 25 }
+                                style = {{ marginRight: 0 }}
+                                color = '#454545' />
+                            <Text style={styles.profileListItemTitle}>Logout</Text>
+                            
+                          </View>
+                            <MaterialCommunityIcons name = 'menu-right'
+                                size = { 30 }
+                                style = {{ marginRight: 0 }}
+                                color = '#e22218' />
+                      </TouchableOpacity>
+                    </ScrollView>
                 </View>
                 
             </View>

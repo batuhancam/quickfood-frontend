@@ -49,3 +49,29 @@
     font-weight: 700;
     font-size: 16px;
 }
+
+.profileListItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    border-bottom-color: #AAA;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: 10px;
+}
+
+.profileListItemLeftAlignment {
+    display: flex;
+    flex-direction: row;
+}
+
+.profileListItemTitle {
+    color: #333;
+    font-size: 14px;
+    line-height: 25px;
+    margin-left: 10px;
+    font-weight: 600;
+}

@@ -267,11 +267,11 @@ export default class Login extends Component {
                 onChangeText={(value) => { this.setState({signUpPasswordConfirm: value})}}/>
               </View>
               <TouchableOpacity style={styles.signupButtonView} onPress={this.signUp}>
-              <LinearGradient colors={['#fc291d', '#ff3f34']} style={styles.signupButtonView}>
-                <Text style={styles.signupButton}>
-                  Sign Up
-                </Text>
-              </LinearGradient>
+                <LinearGradient colors={['#fc291d', '#ff3f34']} style={styles.signupButtonView}>
+                  <Text style={styles.signupButton}>
+                    Sign Up
+                  </Text>
+                </LinearGradient>
              </TouchableOpacity>
             </KeyboardAvoidingView>
          </Animated.View>
