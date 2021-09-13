@@ -100,8 +100,9 @@ export default class Login extends Component {
           {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
         ]);
       }else{
+        let newUserInfos;
         if(this.validate(this.state.signUpMail)){
-        const newUserInfos = await fetch('http://localhost:3000/users/signup',{
+        newUserInfos = await fetch('http://localhost:3000/users/signup',{
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -123,7 +124,7 @@ export default class Login extends Component {
             {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
           ]);
         }
-        
+        console.log(newUserInfos)
         if(!newUserInfos.errorCode){
           await AsyncStorage.setItem('loginAuth', '1')
           await AsyncStorage.setItem('userID', newUserInfos._id)

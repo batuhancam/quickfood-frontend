@@ -70,9 +70,59 @@ export default class AccountInformation extends Component {
           Alert.alert('Error', `You have not changed any information!`,[
             {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
           ]);
-        }else{
+        }else if(currentUser.userEmail!=email){
+            Alert.alert('Email Update Warning', `If you agree to change email address, you will be logged out of your account and you will have to login again with your new email address!`,[
+                {text: 'OK', onPress: async () => {
+                    const updatedUser = await fetch('http://localhost:3000/users/update', {
+                    method: 'POST',
+                    headers: {'Content-type': 'application/json'},
+                    body: JSON.stringify({
+                    userID: userID,
+                    userFullName: fullName,
+                    userEmail: email
+                    })
+                    }).then(res=> 
+                        res.json()
+                    ).then(res=> {
+                        console.log(res)
+                    })
+                    await AsyncStorage.setItem('userID','0')
+                    await AsyncStorage.setItem('loginAuth','0')
+                    this.props.navigation.navigate("Home")
+                }
+                
+            },
+            {text: "Cancel", onPress: () => {console.log('alert box closed')}}
+            ]);
             
         }
+    }
+    deleteUser = async() => {
+        const userID = await AsyncStorage.getItem('userID')
+        console.log(userID)
+        Alert.alert('Delete Warning', `Are you sure you want to delete your account?`,[
+            {text: 'OK', onPress: async () => {
+                const deletedUser = await fetch('http://localhost:3000/users/delete', {
+                    method: 'POST',
+                    headers: {'Content-type': 'application/json'},
+                    body: JSON.stringify({
+                        userID: userID
+                    })
+                }).then(res => 
+                    res.json()
+                ).then(res=> {
+                    console.log(res)
+                })
+                await AsyncStorage.setItem('userID','0')
+                await AsyncStorage.setItem('loginAuth','0')
+                this.props.navigation.navigate("Home")
+            }
+            
+        },
+        {text: "Cancel", onPress: () => {console.log('alert box closed')}}
+        ]);
+           
+        
     }
     
   
@@ -115,7 +165,7 @@ export default class AccountInformation extends Component {
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.deleteUser}>
                         <View style={styles.disableButtonView}>
                             <Text style={styles.disableButton}>
                                 Disable the account
