@@ -49,6 +49,9 @@ export default class Profile extends Component {
     accountInformation = () => {
       this.props.navigation.navigate('AccountInformation')
     }
+    myFoods = () => {
+      this.props.navigation.navigate('MyFoods')
+    }
 
     logout = async () => {
       AsyncStorage.setItem('loginAuth', '0'); 
@@ -89,7 +92,7 @@ export default class Profile extends Component {
                                   style = {{ marginRight: 0 }}
                                   color = '#e22218' />
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.profileListItem} onPress={this.logout}>
+                      <TouchableOpacity style={styles.profileListItem} onPress={this.myFoods}>
                             <View style={styles.profileListItemLeftAlignment}>
                               <MaterialCommunityIcons name = 'food'
                                   size = { 25 }

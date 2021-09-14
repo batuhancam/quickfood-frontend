@@ -9,6 +9,7 @@ import SearchInput from '../src/components/SearchInput/SearchInput'
 import Login from '../src/screens/Login'
 import Profile from '../src/screens/Profile';
 import AccountInformation from '../src/screens/AccountInformation';
+import MyFoods from '../src/screens/MyFoods';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabBarIcon from '../src/components/Icon/TabBarIcon';
@@ -20,12 +21,17 @@ const Tab = createStackNavigator()
 
 function ProfileNavigator() {
   return (
-    <Tab.Navigator initialRouteName='Home' screenOptions={{headerShown: false}} >
+    <Tab.Navigator initialRouteName='Profile' screenOptions={{headerShown: false}} >
       <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="AccountInformation" component={AccountInformation} options={{
         headerShown: true,
         headerBackTitleVisible: false,
         headerTitle: "Account Information"
+      }} />
+      <Tab.Screen name="MyFoods" component={MyFoods} options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerTitle: "My Foods"
       }} />
     </Tab.Navigator>
   );
