@@ -172,7 +172,7 @@ export default class Login extends Component {
                  placeholder="Email"
                  placeholderTextColor='#b1b1b3'
                  value={this.state.userEmail} 
-                 onChangeText={(value) => { this.setState({userEmail: value})}}/>
+                 onChangeText={(value) => { this.setState({userEmail: value} )}}/>
              </View>
              <View style={[styles.inputView, styles.passwordView]}>
                 <TextInput 

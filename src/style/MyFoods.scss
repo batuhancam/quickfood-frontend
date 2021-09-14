@@ -1,0 +1,20 @@
+.container {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+}
+
+.foods {
+    display: flex;
+    flex-direction: column;
+    border-bottom-color: #DDD;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    height: 100%;
+    width: 100%;
+}
+
+.foodPicture {
+    width: 100%;
+    resize-mode: strech
+}

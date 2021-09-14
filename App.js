@@ -3,7 +3,6 @@ import {
     KeyboardAvoidingView,
     View,
     StyleSheet,
-    Image,
     TouchableOpacity,
     Text,
     StatusBar,
