@@ -10,6 +10,7 @@ import Login from '../src/screens/Login'
 import Profile from '../src/screens/Profile';
 import AccountInformation from '../src/screens/AccountInformation';
 import MyFoods from '../src/screens/MyFoods';
+import Food from '../src/screens/Food';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabBarIcon from '../src/components/Icon/TabBarIcon';
@@ -32,6 +33,12 @@ function ProfileNavigator() {
         headerShown: true,
         headerBackTitleVisible: false,
         headerTitle: "My Foods"
+      }} />
+
+      <Tab.Screen name="Food" component={Food} options={{
+        headerShown: true,
+        headerBackTitleVisible: false,
+        headerTitle: "Food"
       }} />
     </Tab.Navigator>
   );
