@@ -21,41 +21,41 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import styles from '../style/MyFoods.scss';
-import Foods from '../components/Foods/Foods'
+import styles from '../style/Food.scss';
 
-export default class MyFoods extends Component {
+export default class Food extends Component {
 
     constructor (props) {
       super(props);
       this.state = {
-        user: {},
         fullName: '',
         email: '',
-        foods: {}
+        food: {}
       }
     }
 
     componentDidMount = async() => {
-        const userID = await AsyncStorage.getItem('userID')
-        const foods = await fetch('http://localhost:3000/foods/getByUserID', {
+        const foodID = await AsyncStorage.getItem('foodID')
+        const food = await fetch('http://localhost:3000/foods/getByID', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              userID: userID,
+              id: foodID,
             })
         }).then(res=> 
             res.json()
         )
-        this.setState({foods: foods})
+        this.setState({food: food})
+        console.log(food)
     }
     
   
     render() {
+      const {food} = this.state
       return (
         <View style={styles.container}>
             <View style={styles.foods}>
-                <Foods allFoods={this.state.foods} navigation={this.props.navigation} />
+                <Text>{food['foodName']}</Text>
             </View>
         </View>
       );

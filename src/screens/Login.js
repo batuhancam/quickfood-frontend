@@ -75,6 +75,7 @@ export default class Login extends Component {
       }).catch(err => {
         console.log(err)
       })
+      console.log(user)
       if(!user.errorCode){
         console.log(user)
         await AsyncStorage.setItem('loginAuth', '1')
