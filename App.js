@@ -16,7 +16,7 @@ import SearchInput from "./src/components/SearchInput/SearchInput";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Login from './src/screens/Login'
 import Navigator from './router/navigator'
-
+import Food from "./src/screens/Food";
 const Stack = createStackNavigator();
 
 export default class App extends Component {
@@ -32,8 +32,9 @@ export default class App extends Component {
         return ( 
         <View style = { styles.container } >
             <NavigationContainer initialRouteName = "Home" >
-                <Stack.Navigator screenOptions = {{ headerShown: false } } >
-                    <Stack.Screen name = "Home" component = { Navigator }/> 
+                <Stack.Navigator >
+                    <Stack.Screen name = "Home" component = { Navigator } options = {{headerShown: false}}/> 
+                    
                 </Stack.Navigator>
             </NavigationContainer> 
         </View>

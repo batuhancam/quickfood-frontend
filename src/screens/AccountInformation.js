@@ -68,7 +68,7 @@ export default class AccountInformation extends Component {
 
         if(currentUser.userFullName == fullName && currentUser.userEmail == email){
           Alert.alert('Error', `You have not changed any information!`,[
-            {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+            {text: 'Try Again', onPress: () => {console.log('alert box closed')}, style: 'cancel'}
           ]);
         }else if(currentUser.userEmail!=email){
             Alert.alert('Email Update Warning', `If you agree to change email address, you will be logged out of your account and you will have to login again with your new email address!`,[
@@ -89,12 +89,34 @@ export default class AccountInformation extends Component {
                     await AsyncStorage.setItem('userID','0')
                     await AsyncStorage.setItem('loginAuth','0')
                     this.props.navigation.navigate("Home")
-                }
+                },
+                style: 'cancel'
                 
             },
             {text: "Cancel", onPress: () => {console.log('alert box closed')}}
             ]);
-            
+        }else if(currentUser.userFullName != fullName){
+            Alert.alert('Update', `Are you sure to change your name?`,[
+                {text: 'Change', onPress: async () => {
+                    const updatedUser = await fetch('http://localhost:3000/users/update', {
+                    method: 'POST',
+                    headers: {'Content-type': 'application/json'},
+                    body: JSON.stringify({
+                    userID: userID,
+                    userFullName: fullName,
+                    userEmail: email
+                    })
+                    }).then(res=> 
+                        res.json()
+                    ).then(res=> {
+                        console.log(res)
+                    })
+                    this.props.navigation.navigate("Profile")
+                },
+                style: 'cancel'
+            },
+            {text: "Cancel", onPress: () => {console.log('alert box closed')}}
+            ]);
         }
     }
     deleteUser = async() => {

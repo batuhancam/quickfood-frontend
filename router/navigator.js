@@ -11,14 +11,16 @@ import Profile from '../src/screens/Profile';
 import AccountInformation from '../src/screens/AccountInformation';
 import MyFoods from '../src/screens/MyFoods';
 import Food from '../src/screens/Food';
+import AddFood from '../src/screens/AddFood';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabBarIcon from '../src/components/Icon/TabBarIcon';
 import { isArgumentPlaceholder } from '@babel/types';
 import { createStackNavigator } from '@react-navigation/stack';
+import Foods from '../src/components/Foods/Foods';
 
 const BottomTab = createBottomTabNavigator();
-const Tab = createStackNavigator()
+const Tab = createStackNavigator();
 
 function ProfileNavigator() {
   return (
@@ -34,15 +36,16 @@ function ProfileNavigator() {
         headerBackTitleVisible: false,
         headerTitle: "My Foods"
       }} />
-
-      <Tab.Screen name="Food" component={Food} options={{
-        headerShown: true,
-        headerBackTitleVisible: false,
-        headerTitle: "Food"
-      }} />
+      <Tab.Screen name="Food" component={Food} 
+          options={({ route }) => ({ 
+              title: route.params.name,   
+              headerShown: true
+          })} 
+      />
     </Tab.Navigator>
   );
 }
+
 
 export default function Navigator({navigation, route}) {
   // Set the header title on the parent stack navigator depending on the
@@ -74,14 +77,32 @@ export default function Navigator({navigation, route}) {
         />
         <BottomTab.Screen
           name="Category"
-          component={SearchInput}
+          component={Food}
           options={{
             title: 'Category',
             tabBarActiveTintColor:'#ff3f34',
             tabBarInactiveTintColor:'#a0a0a0',
             tabBarShowLabel: false,
+            headerShown: true,  
             tabBarIcon: (focused) => <TabBarIcon
               name="menu"
+              focused={focused}
+              iconStyle={{marginRight: 0}}
+            />
+          }
+        }
+        />
+        <BottomTab.Screen
+          name="Add Food"
+          component={AddFood}
+          options={{
+            title: 'Add Food',
+            tabBarActiveTintColor:'#ff3f34',
+            tabBarInactiveTintColor:'#a0a0a0',
+            tabBarShowLabel: false,
+            headerShown: true,  
+            tabBarIcon: (focused) => <TabBarIcon
+              name="plus-box-outline"
               focused={focused}
               iconStyle={{marginRight: 0}}
             />
@@ -145,4 +166,4 @@ export default function Navigator({navigation, route}) {
         
       </BottomTab.Navigator>
   );
-}
+} 

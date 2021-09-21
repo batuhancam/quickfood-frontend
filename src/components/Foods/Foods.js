@@ -34,8 +34,7 @@ export default class Foods extends Component {
         favFoods: []
       } 
     }
-
-    componentDidMount = async( ) => {
+    loadData = async() => {
       const userID = await AsyncStorage.getItem('userID')
       const favoriteFoods = await fetch('http://localhost:3000/favorites/getByUserID', {
             method: 'POST',
@@ -60,6 +59,16 @@ export default class Foods extends Component {
         favs = favs.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
        
         this.setState({favorites: favoriteFoods, favFoods: favs})
+    }
+    componentDidMount = async( ) => {
+
+      this.loadData();
+
+      this.focusListener = this.props.navigation.addListener('focus', () => {
+        this.loadData();
+        //Put your Data loading function here instead of my this.loadData()
+      });
+      
     }
     switchFavorite = async (foodID,favs) => {
       const userID = await AsyncStorage.getItem('userID')
@@ -98,7 +107,7 @@ export default class Foods extends Component {
         }
 
         return Array.prototype.map.call(foods, (food,index) => {
-            const foodImage = food.foodPicturePaths[0]           
+            const foodImage = food.foodPicturePaths[0] != null ? food.foodPicturePaths[0] : 'src/images/defaultFoodImage.jpg';          
             
             while(true){
               if(favs.length>this.state.favFoods.length){
@@ -108,11 +117,10 @@ export default class Foods extends Component {
               }
             }
             favs = favs.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
-
             return (
               <TouchableOpacity key={food._id} onPress={async ()=> {
                 AsyncStorage.setItem('foodID', food._id);
-                this.props.navigation.navigate('Food')
+                this.props.navigation.navigate('Food', {name: food.foodName})
               }}>
                 <View style={styles.food} >
                     <ImageDisplayer
@@ -123,7 +131,7 @@ export default class Foods extends Component {
                       <MaterialCommunityIcons name={this.state.favFoods.includes(food._id) ? 'star': 'star-outline'}
                         key={food._id}
                         size = { 25 }
-                        style = {styles.heartIcon}
+                        style = {styles.starIcon}
                         onPress={()=> {
                           this.switchFavorite(food._id);
                           if(favs.includes(food._id)){

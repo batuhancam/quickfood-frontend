@@ -1,46 +1,60 @@
 {
-    "name": "QuickFoodFrontend",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "android": "react-native run-android",
-        "ios": "react-native run-ios",
-        "start": "react-native start",
-        "test": "jest",
-        "lint": "eslint ."
-    },
-    "dependencies": {
-        "@react-navigation/bottom-tabs": "^6.0.5",
-        "@react-navigation/native": "^6.0.2",
-        "@react-navigation/native-stack": "^6.1.0",
-        "@react-navigation/stack": "^6.0.7",
-        "babel-plugin-react-native-platform-specific-extensions": "^1.1.1",
-        "dotenv": "^10.0.0",
-        "node-sass": "^6.0.1",
-        "react": "17.0.2",
-        "react-native": "0.65.1",
-        "react-native-gesture-handler": "^1.10.3",
-        "react-native-linear-gradient": "^2.5.6",
-        "react-native-safe-area-context": "^3.3.0",
-        "react-native-sass-transformer": "^1.4.0",
-        "react-native-screens": "^3.6.0",
-        "react-native-swipe-gestures": "^1.0.5",
-        "react-native-vector-icons": "^8.1.0",
-        "react-native-video": "^5.1.1",
-        "react-navigation": "^4.4.4"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.15.0",
-        "@babel/runtime": "^7.15.3",
-        "@react-native-community/eslint-config": "^3.0.0",
-        "babel-jest": "^27.1.0",
-        "eslint": "^7.32.0",
-        "jest": "^27.1.0",
-        "metro-react-native-babel-preset": "^0.66.2",
-        "react-native-codegen": "^0.0.7",
-        "react-test-renderer": "17.0.2"
-    },
-    "jest": {
-        "preset": "react-native"
-    }
+  "name": "quickfoodfrontend",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.0.5",
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/native-stack": "^6.1.0",
+    "@react-navigation/stack": "^6.0.7",
+    "babel-plugin-react-native-platform-specific-extensions": "^1.1.1",
+    "dotenv": "^10.0.0",
+    "node-sass": "^6.0.1",
+    "react": "17.0.2",
+    "react-native": "0.65.1",
+    "react-native-cli": "^2.0.1",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-image-slider-box": "^1.1.8",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-safe-area-context": "^3.3.0",
+    "react-native-sass-transformer": "^1.4.0",
+    "react-native-screens": "^3.6.0",
+    "react-native-swipe-gestures": "^1.0.5",
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-video": "^5.1.1",
+    "react-navigation": "^4.4.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/runtime": "^7.15.3",
+    "@react-native-community/eslint-config": "^3.0.0",
+    "babel-jest": "^27.1.0",
+    "eslint": "^7.32.0",
+    "jest": "^27.1.0",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "react-native-codegen": "^0.0.7",
+    "react-test-renderer": "17.0.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/batuhancam/quickfood-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/batuhancam/quickfood-frontend/issues"
+  },
+  "homepage": "https://github.com/batuhancam/quickfood-frontend#readme"
 }

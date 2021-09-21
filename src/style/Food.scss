@@ -13,3 +13,21 @@
     width: 100%;
     height: 100%;
 }
+.foodHeader{
+    margin: 12px 12px 5px 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.foodTitle{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.starIcon {
+    width: 30px;
+}
+.foodDescription{
+    margin: 12px 12px 5px 12px;
+}
