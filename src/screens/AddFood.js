@@ -25,97 +25,52 @@ import { SliderBox } from "react-native-image-slider-box";
 
 import styles from '../style/AddFood.scss';
 
+import ImagePicker from 'react-native-image-crop-picker';
+
 export default class AddFood extends Component {
 
     constructor (props) {
       super(props);
       this.state = {
-        fullName: '',
-        food: {},
-        images: [],
-        isLiked: false
+        images: []
       }
     }
 
-    componentDidMount = async() => {
-        const foodID = await AsyncStorage.getItem('foodID')
-        const food = await fetch('http://localhost:3000/foods/getByID', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              id: foodID,
-            })
-        }).then(res=> 
-            res.json()
-        )
-        food.foodPicturePaths = Array.prototype.map.call(food.foodPicturePaths, path => {
-          path = "http://localhost:8081/"+path
-          return path
-        })
-        if(food.foodPicturePaths.length == 0) {
-          food.foodPicturePaths = ['http://localhost:8081/src/images/defaultFoodImage.jpg']
-        }
-        const user = await fetch('http://localhost:3000/users/getByUserID',{
-          method: 'POST',
-          headers: {'Content-type': 'application/json'},
-          body: JSON.stringify({
-            userID: food.userID
-          })
-        }).then(res => res.json());
-
-        const isPostLiked = await fetch('http://localhost:3000/favorites/isLiked',{
-          method: 'POST',
-          headers: {'Content-type': 'application/json'},
-          body: JSON.stringify({
-            userID: food.userID,
-            foodID: foodID
-          })
-        }).then(res => res.json());
-        this.setState({food: food, images: food.foodPicturePaths, fullName: user.userFullName, isLiked: isPostLiked.status})
+    openImagePicker = () => {
+      ImagePicker.openPicker({
+        multiple: true
+      }).then(res=> {
+        this.setState({images: res})
+        console.log(res)
+      })
     }
     
-    switchLike = async() => {
-      const foodID = await AsyncStorage.getItem('foodID')
-      const userID = await AsyncStorage.getItem('userID')
-      const isPostLiked = await fetch('http://localhost:3000/favorites/switch',{
-          method: 'POST',
-          headers: {'Content-type': 'application/json'},
-          body: JSON.stringify({
-            userID: userID,
-            foodID: foodID
-          })
-        }).then(res => res.json());
-        this.setState({isLiked: !this.state.isLiked})
-      
+    previewImages=()=> {
+      Array.prototype.map.call(this.state.images, image => {
+        console.log(image.filename)
+        return <Text>{image.filename}</Text>
+      })
     }
+
+    componentDidMount = async() => {
+       
+    }
+   
     render() {
-      const {food, fullName, isLiked} = this.state
       return (
         <View style={styles.container}>
-            <View style={styles.foods}>
-              <SliderBox 
-                images={this.state.images}
-                sliderBoxHeight={300}
-                disableOnPress={true}
-                dotColor="#ff3f34"
-                inactiveDotColor="#90A4AE" />
-
-                <View style={styles.foodHeader}>
-                  <View style={styles.foodTitleView}>
-                    <Text style={styles.foodTitle}>{food.foodName} by {fullName}</Text>
-                  </View>
-                  <MaterialCommunityIcons
-                    name={isLiked ? 'star' : 'star-outline'}
-                    size={25}
-                    style={styles.starIcon}
-                    color={isLiked ? '#ff3f34' : '#222'}
-                    onPress={this.switchLike}
-                  />
-                </View>
-                <View style={styles.foodDescriptionView}>
-                  <Text style={styles.foodDescription}>{food.foodDescription}</Text>
-                </View>
-            </View>
+            <TouchableOpacity style={styles.addFoodImageTO} >
+              <View style={styles.addFoodImageView}>
+                <MaterialCommunityIcons name='food-steak'
+                          size = { 120 }
+                          style = {styles.addFoodImageIcon}
+                          color = '#CCC'/>
+                <Text style={styles.addFoodImageTitle}>
+                  Tap to upload image(s)
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <Text>{this.state.images.length}</Text>
         </View>
       );
     }
