@@ -18,6 +18,7 @@ import TabBarIcon from '../src/components/Icon/TabBarIcon';
 import { isArgumentPlaceholder } from '@babel/types';
 import { createStackNavigator } from '@react-navigation/stack';
 import Foods from '../src/components/Foods/Foods';
+import AddTitleAndDesc from '../src/screens/AddTitleAndDesc';
 
 const BottomTab = createBottomTabNavigator();
 const Tab = createStackNavigator();
@@ -45,7 +46,18 @@ function ProfileNavigator() {
     </Tab.Navigator>
   );
 }
-
+function AddFoodNavigator(){
+  return(
+    <Tab.Navigator initialRouteName='Add Image'>
+      <Tab.Screen name="Upload Image" component={AddFood} />
+      <Tab.Screen name="Add Title and Description" component={AddTitleAndDesc} 
+       options={({ route }) => ({ 
+        imagesAWS: route.params.imagesAWS
+    })} 
+      />
+    </Tab.Navigator>
+  )
+}
 
 export default function Navigator({navigation, route}) {
   // Set the header title on the parent stack navigator depending on the
@@ -94,13 +106,13 @@ export default function Navigator({navigation, route}) {
         />
         <BottomTab.Screen
           name="Add Food"
-          component={AddFood}
+          component={AddFoodNavigator}
           options={{
             title: 'Add Food',
             tabBarActiveTintColor:'#ff3f34',
             tabBarInactiveTintColor:'#a0a0a0',
             tabBarShowLabel: false,
-            headerShown: true,  
+            headerShown: false,  
             tabBarIcon: (focused) => <TabBarIcon
               name="plus-box-outline"
               focused={focused}

@@ -20,55 +20,19 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ImagePicker from 'react-native-image-crop-picker';
 import styles from '../style/AddFood.scss';
 import { SliderBox } from "react-native-image-slider-box";
-export default class AddFood extends Component {
+import { createIconSetFromFontello } from "react-native-vector-icons";
+export default class AddTitleAndDesc extends Component {
 
     constructor (props) {
       super(props);
       this.state = {
-        imagePaths: [],
-        imagesAWS: []
+        imagePaths: []
       }
     }
-
-    openImagePicker = () => {
-      let imageList = [], imagesAWS = []
-      ImagePicker.openPicker({
-        multiple:true,
-        waitAnimationEnd: false,
-        includeExif: true,
-        forceJpg: true,
-        compressImageQuality: 0.8,
-        maxFiles: 5,
-        mediaType: 'photo',
-        includeBase64: true
-      }).then(res => {
-        res.map(image => {
-          imageList.push(image.path)
-          imagesAWS.push({
-            filename: image.filename,
-            path: image.path,
-            data: image.data
-          })
-        })
-        this.setState({imagePaths: imageList, imagesAWS: imagesAWS})
-      });
     
-    }
-    deleteSelectedImages = () => {
-      Alert.alert('Delete Selected Images', `Are you sure you want to delete all selected images?`,[
-        {text: 'Yes', onPress: async () => {
-           this.setState({imagePaths: []})
-        },
-        style: 'cancel'
-        
-    },
-    {text: "Cancel", onPress: () => {console.log('alert box closed')}}
-    ]);
-    }
-    nextButton = () => {
-      this.props.navigation.navigate('Add Title and Description', {imagesAWS: this.state.imagesAWS})
-    }
+
     componentDidMount = async() => {
+      //this.props.route.params.imagesAWS comin' from AddFood Screen
       
     }
    
@@ -84,7 +48,7 @@ export default class AddFood extends Component {
                             style = {styles.addFoodImageIcon}
                             color = '#CCC'/>
                   <Text style={styles.addFoodImageTitle}>
-                    Tap to upload image(s)
+                    Tap to upload imag222e(s)
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -102,14 +66,14 @@ export default class AddFood extends Component {
                         size = { 25 }
                         style = {styles.deleteSelectedImagesIcon}
                         color = '#FFF'/>
-                      <Text style={styles.deleteSelectedImagesTitle}>Delete Selected Images</Text>
+                      <Text style={styles.deleteSelectedImagesTitle}>Delete Sel222ected Images</Text>
                     </View>
                   </TouchableOpacity>
                 </View>
                   
               }
             
-              <TouchableOpacity style={styles.nextButtonTO} onPress={this.nextButton}>
+              <TouchableOpacity style={styles.nextButtonTO}>
                 <Text style={styles.nextButtonTitle}>Next</Text>
                 <MaterialCommunityIcons name='chevron-right'
                   size = { 25 }
