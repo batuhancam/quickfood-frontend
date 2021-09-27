@@ -15,62 +15,99 @@ import {
   AsyncStorage,
   Appearance
 } from "react-native";
-import LinearGradient from 'react-native-linear-gradient';
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import { SliderBox } from "react-native-image-slider-box";
-
-import styles from '../style/AddFood.scss';
-
 import ImagePicker from 'react-native-image-crop-picker';
-
+import styles from '../style/AddFood.scss';
+import { SliderBox } from "react-native-image-slider-box";
 export default class AddFood extends Component {
 
     constructor (props) {
       super(props);
       this.state = {
-        images: []
+        imagePaths: []
       }
     }
 
     openImagePicker = () => {
+      let imageList = []
       ImagePicker.openPicker({
-        multiple: true
-      }).then(res=> {
-        this.setState({images: res})
-        console.log(res)
-      })
-    }
+        multiple:true,
+        waitAnimationEnd: false,
+        includeExif: true,
+        forceJpg: true,
+        compressImageQuality: 0.8,
+        maxFiles: 5,
+        mediaType: 'photo',
+        includeBase64: true
+      }).then(res => {
+        res.map(image => {
+          imageList.push(image.path)
+        })
+        this.setState({imagePaths: imageList})
+      });
     
-    previewImages=()=> {
-      Array.prototype.map.call(this.state.images, image => {
-        console.log(image.filename)
-        return <Text>{image.filename}</Text>
-      })
+    }
+    deleteSelectedImages = () => {
+      Alert.alert('Delete Selected Images', `Are you sure you want to delete all selected images?`,[
+        {text: 'Yes', onPress: async () => {
+           this.setState({imagePaths: []})
+        },
+        style: 'cancel'
+        
+    },
+    {text: "Cancel", onPress: () => {console.log('alert box closed')}}
+    ]);
     }
 
     componentDidMount = async() => {
-       
+      
     }
    
     render() {
       return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.addFoodImageTO} >
-              <View style={styles.addFoodImageView}>
-                <MaterialCommunityIcons name='food-steak'
-                          size = { 120 }
-                          style = {styles.addFoodImageIcon}
-                          color = '#CCC'/>
-                <Text style={styles.addFoodImageTitle}>
-                  Tap to upload image(s)
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <Text>{this.state.images.length}</Text>
+            
+              {this.state.imagePaths.length == 0 ? 
+              <TouchableOpacity style={styles.addFoodImageTO} onPress={this.openImagePicker}>
+                <View style={styles.addFoodImageView}>
+                  <MaterialCommunityIcons name='food-steak'
+                            size = { 120 }
+                            style = {styles.addFoodImageIcon}
+                            color = '#CCC'/>
+                  <Text style={styles.addFoodImageTitle}>
+                    Tap to upload image(s)
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              :
+                <View>
+                  <SliderBox 
+                  images={this.state.imagePaths}
+                  sliderBoxHeight={300}
+                  disableOnPress={true}
+                  dotColor="#ff3f34"
+                  inactiveDotColor="#90A4AE" />
+                  <TouchableOpacity style={styles.deleteSelectedImagesTO} onPress={this.deleteSelectedImages}>
+                    <View style={styles.deleteSelectedImagesView}>
+                      <MaterialCommunityIcons name='trash-can-outline'
+                        size = { 25 }
+                        style = {styles.deleteSelectedImagesIcon}
+                        color = '#FFF'/>
+                      <Text style={styles.deleteSelectedImagesTitle}>Delete Selected Images</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                  
+              }
+            
+              <TouchableOpacity style={styles.nextButtonTO}>
+                <Text style={styles.nextButtonTitle}>Next</Text>
+                <MaterialCommunityIcons name='chevron-right'
+                  size = { 25 }
+                  style = {styles.nextButtonIcon}
+                  color = '#FFF'/>
+              </TouchableOpacity>
         </View>
       );
     }

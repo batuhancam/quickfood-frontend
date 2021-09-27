@@ -31,3 +31,60 @@
     font-size: 18px;
     font-weight: 500;
 }
+
+.nextButtonTO {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 40px;
+    background-color: #ff3f34;
+    border-radius: 8px;
+}
+
+.nextButtonTitle {
+    color: #fff;
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+.nextButtonIcon {
+    color: #FFF;
+}
+
+.deleteSelectedImagesTO {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.deleteSelectedImagesView {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 60%;
+    height: 100%;
+    background-color: #ff3f34;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.deleteSelectedImagesTitle {
+    font-weight: 600;
+    color: #FFF;
+    font-size: 16px;
+}
+
+.deleteSelectedImagesIcon {
+    color: #FFF;
+}
