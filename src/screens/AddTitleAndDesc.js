@@ -18,16 +18,27 @@ import {
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
-import styles from '../style/AddFood.scss';
+import styles from '../style/AddTitleAndDesc.scss';
 import { SliderBox } from "react-native-image-slider-box";
 import { createIconSetFromFontello } from "react-native-vector-icons";
+import {actions, getContentCSS, RichEditor, RichToolbar} from 'react-native-pell-rich-editor';
 export default class AddTitleAndDesc extends Component {
-
+    richText = React.createRef();
+    
     constructor (props) {
       super(props);
       this.state = {
-        imagePaths: []
+        foodTitle: '',
+        foodDesc: '',
       }
+      const defaultActions = [
+        actions.insertImage,
+        actions.setBold,
+        actions.setItalic,
+        actions.insertBulletsList,
+        actions.insertOrderedList,
+        actions.insertLink
+      ];
     }
     
 
@@ -35,45 +46,53 @@ export default class AddTitleAndDesc extends Component {
       //this.props.route.params.imagesAWS comin' from AddFood Screen
       
     }
+    nextButton = () => {
+      this.props.navigation.navigate('Select Ingredients', {
+        imagesAWS: this.props.route.params.imagesAWS,
+        foodTitle: this.state.foodTitle,
+        foodDesc: this.state.foodDesc
+      })
+    }
    
     render() {
       return (
         <View style={styles.container}>
-            
-              {this.state.imagePaths.length == 0 ? 
-              <TouchableOpacity style={styles.addFoodImageTO} onPress={this.openImagePicker}>
-                <View style={styles.addFoodImageView}>
-                  <MaterialCommunityIcons name='food-steak'
-                            size = { 120 }
-                            style = {styles.addFoodImageIcon}
-                            color = '#CCC'/>
-                  <Text style={styles.addFoodImageTitle}>
-                    Tap to upload imag222e(s)
-                  </Text>
+
+              <View style={styles.imageTitleAndDescView}>
+                <View style={[styles.inputView]}>
+                  <TextInput 
+                  style={styles.input} 
+                  placeholder="Food Title" 
+                  placeholderTextColor='#b1b1b3'
+                  value={this.state.foodTitle} 
+                  onChangeText={(value) => { this.setState({foodTitle: value})}}/>
                 </View>
-              </TouchableOpacity>
-              :
                 <View>
-                  <SliderBox 
-                  images={this.state.imagePaths}
-                  sliderBoxHeight={300}
-                  disableOnPress={true}
-                  dotColor="#ff3f34"
-                  inactiveDotColor="#90A4AE" />
-                  <TouchableOpacity style={styles.deleteSelectedImagesTO} onPress={this.deleteSelectedImages}>
-                    <View style={styles.deleteSelectedImagesView}>
-                      <MaterialCommunityIcons name='trash-can-outline'
-                        size = { 25 }
-                        style = {styles.deleteSelectedImagesIcon}
-                        color = '#FFF'/>
-                      <Text style={styles.deleteSelectedImagesTitle}>Delete Sel222ected Images</Text>
-                    </View>
-                  </TouchableOpacity>
+                  <RichEditor
+                    ref={this.richText}
+                    placeholder="Description for your food"
+                    initialHeight={300}
+                    actions={this.defaultActions}
+                    value={this.state.foodDesc}
+                    onChange={(value) => {console.log(value);this.setState({foodDesc: value})}}
+                  />      
+                   <RichToolbar
+                        editor={this.richText}
+                        selectedIconTint={'#2095F2'}
+                        disabledIconTint={'#bfbfbf'}
+                    />
                 </View>
-                  
-              }
-            
-              <TouchableOpacity style={styles.nextButtonTO}>
+              </View>
+
+              
+              <TouchableOpacity style={styles.previousButtonTO}>
+                <MaterialCommunityIcons name='chevron-left'
+                  size = { 25 }
+                  style = {styles.previousButtonIcon}
+                  color = '#FFF'/>
+                <Text style={styles.previousButtonTitle}>Back</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.nextButtonTO} onPress={this.nextButton}>
                 <Text style={styles.nextButtonTitle}>Next</Text>
                 <MaterialCommunityIcons name='chevron-right'
                   size = { 25 }

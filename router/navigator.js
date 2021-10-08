@@ -19,6 +19,7 @@ import { isArgumentPlaceholder } from '@babel/types';
 import { createStackNavigator } from '@react-navigation/stack';
 import Foods from '../src/components/Foods/Foods';
 import AddTitleAndDesc from '../src/screens/AddTitleAndDesc';
+import SelectIngredients from '../src/screens/SelectIngredients';
 
 const BottomTab = createBottomTabNavigator();
 const Tab = createStackNavigator();
@@ -39,7 +40,7 @@ function ProfileNavigator() {
       }} />
       <Tab.Screen name="Food" component={Food} 
           options={({ route }) => ({ 
-              title: route.params.name,   
+              title: route.params.name,
               headerShown: true
           })} 
       />
@@ -51,9 +52,16 @@ function AddFoodNavigator(){
     <Tab.Navigator initialRouteName='Add Image'>
       <Tab.Screen name="Upload Image" component={AddFood} />
       <Tab.Screen name="Add Title and Description" component={AddTitleAndDesc} 
-       options={({ route }) => ({ 
-        imagesAWS: route.params.imagesAWS
-    })} 
+        options={({ route }) => ({ 
+          imagesAWS: route.params.imagesAWS
+        })} 
+      />
+      <Tab.Screen name="Select Ingredients" component={SelectIngredients} 
+        options={({ route }) => ({ 
+          imagesAWS: route.params.imagesAWS,
+          foodTitle: route.params.foodTitle,
+          foodDesc: route.params.foodDesc
+        })} 
       />
     </Tab.Navigator>
   )

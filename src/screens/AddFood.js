@@ -66,7 +66,12 @@ export default class AddFood extends Component {
     ]);
     }
     nextButton = () => {
+      if(this.state.imagesAWS.length>0)
       this.props.navigation.navigate('Add Title and Description', {imagesAWS: this.state.imagesAWS})
+      else{
+        this.setState({imageAWS: 'null'})
+        this.props.navigation.navigate('Add Title and Description', {imagesAWS: this.state.imagesAWS})
+      }
     }
     componentDidMount = async() => {
       
@@ -84,7 +89,7 @@ export default class AddFood extends Component {
                             style = {styles.addFoodImageIcon}
                             color = '#CCC'/>
                   <Text style={styles.addFoodImageTitle}>
-                    Tap to upload image(s)
+                    Tap to upload image(s) - Maximum 5
                   </Text>
                 </View>
               </TouchableOpacity>
