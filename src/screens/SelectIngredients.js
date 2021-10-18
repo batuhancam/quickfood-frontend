@@ -209,6 +209,14 @@ deleteIngredientHandler = (e) => {
     }
     
 }
+nextButton = () => {
+    this.props.navigation.navigate('Select Categories', {
+      imagesAWS: this.props.route.params.imagesAWS,
+      foodTitle: this.props.route.params.foodTitle,
+      foodDesc: this.props.route.params.foodDesc,
+      ingredients: this.state.selectedIngredients
+    })
+  }
 
 render(){
     return(

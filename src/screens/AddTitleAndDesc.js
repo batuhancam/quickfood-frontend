@@ -33,11 +33,12 @@ export default class AddTitleAndDesc extends Component {
       }
       const defaultActions = [
         actions.insertImage,
-        actions.setBold,
         actions.setItalic,
         actions.insertBulletsList,
         actions.insertOrderedList,
-        actions.insertLink
+        actions.undo,
+        actions.redo
+
       ];
     }
     
@@ -72,14 +73,29 @@ export default class AddTitleAndDesc extends Component {
                     ref={this.richText}
                     placeholder="Description for your food"
                     initialHeight={300}
-                    actions={this.defaultActions}
+                    actions={[
+                      actions.undo,
+                      actions.setItalic,
+                      actions.insertBulletsList,
+                      actions.insertOrderedList,
+                    ]}
                     value={this.state.foodDesc}
-                    onChange={(value) => {console.log(value);this.setState({foodDesc: value})}}
+                    onChange={(value) => {this.setState({foodDesc: value})}}
                   />      
                    <RichToolbar
                         editor={this.richText}
                         selectedIconTint={'#2095F2'}
                         disabledIconTint={'#bfbfbf'}
+                        actions={[
+                          actions.keyboard,
+                          actions.undo,
+                          actions.redo,
+                          actions.setUnderline,
+                          actions.setItalic,
+                          actions.insertBulletsList,
+                          actions.insertOrderedList,
+                          actions.removeFormat,
+                        ]}
                     />
                 </View>
               </View>

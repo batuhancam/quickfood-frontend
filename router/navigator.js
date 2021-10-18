@@ -20,6 +20,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Foods from '../src/components/Foods/Foods';
 import AddTitleAndDesc from '../src/screens/AddTitleAndDesc';
 import SelectIngredients from '../src/screens/SelectIngredients';
+import SelectCategories from '../src/screens/SelectCategories';
 
 const BottomTab = createBottomTabNavigator();
 const Tab = createStackNavigator();
@@ -61,6 +62,14 @@ function AddFoodNavigator(){
           imagesAWS: route.params.imagesAWS,
           foodTitle: route.params.foodTitle,
           foodDesc: route.params.foodDesc
+        })} 
+      />
+      <Tab.Screen name="Select Categories" component={SelectCategories} 
+        options={({ route }) => ({ 
+          imagesAWS: route.params.imagesAWS,
+          foodTitle: route.params.foodTitle,
+          foodDesc: route.params.foodDesc,
+          ingredients: route.params.ingredients
         })} 
       />
     </Tab.Navigator>
