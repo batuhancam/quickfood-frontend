@@ -26,7 +26,6 @@ import SearchInput from "../components/SearchInput/SearchInput";
 import styles from '../style/Login.scss'
 
 export default class Login extends Component {
-
   constructor (props) {
     super(props);
     this.state = {
