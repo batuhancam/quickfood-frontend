@@ -1,0 +1,61 @@
+.container {
+    flex: 1;
+    // align-items: center;
+    // justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+.checkbox{
+    margin: 5px -10px 5px 15px;
+    color: black;
+}
+
+
+
+.previousButtonTO {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 40px;
+    background-color: #636363;
+    border-radius: 8px;
+}
+
+.previousButtonTitle {
+    color: #fff;
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+.previousButtonIcon {
+    color: #FFF;
+}
+
+.nextButtonTO {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 40px;
+    background-color: #ff3f34;
+    border-radius: 8px;
+}
+
+.nextButtonTitle {
+    color: #fff;
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+.nextButtonIcon {
+    color: #FFF;
+}

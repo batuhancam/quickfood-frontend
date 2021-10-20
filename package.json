@@ -19,6 +19,7 @@
     "node-sass": "^6.0.1",
     "react": "17.0.2",
     "react-native": "0.65.1",
+    "react-native-aws3": "^0.0.9",
     "react-native-bouncy-checkbox": "^2.1.7",
     "react-native-ckeditor": "^1.0.2",
     "react-native-cli": "^2.0.1",

@@ -31,15 +31,6 @@ export default class AddTitleAndDesc extends Component {
         foodTitle: '',
         foodDesc: '',
       }
-      const defaultActions = [
-        actions.insertImage,
-        actions.setItalic,
-        actions.insertBulletsList,
-        actions.insertOrderedList,
-        actions.undo,
-        actions.redo
-
-      ];
     }
     
 
@@ -90,8 +81,9 @@ export default class AddTitleAndDesc extends Component {
                           actions.keyboard,
                           actions.undo,
                           actions.redo,
-                          actions.setUnderline,
+                          actions.setBold,
                           actions.setItalic,
+                          actions.setUnderline,
                           actions.insertBulletsList,
                           actions.insertOrderedList,
                           actions.removeFormat,

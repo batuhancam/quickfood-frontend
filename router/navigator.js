@@ -21,6 +21,7 @@ import Foods from '../src/components/Foods/Foods';
 import AddTitleAndDesc from '../src/screens/AddTitleAndDesc';
 import SelectIngredients from '../src/screens/SelectIngredients';
 import SelectCategories from '../src/screens/SelectCategories';
+import PreviewPost from '../src/screens/PreviewPost';
 
 const BottomTab = createBottomTabNavigator();
 const Tab = createStackNavigator();
@@ -70,6 +71,15 @@ function AddFoodNavigator(){
           foodTitle: route.params.foodTitle,
           foodDesc: route.params.foodDesc,
           ingredients: route.params.ingredients
+        })} 
+      />
+      <Tab.Screen name="Preview Post" component={PreviewPost} 
+        options={({ route }) => ({ 
+          imagesAWS: route.params.imagesAWS,
+          foodTitle: route.params.foodTitle,
+          foodDesc: route.params.foodDesc,
+          ingredients: route.params.ingredients,
+          categories: route.params.categories
         })} 
       />
     </Tab.Navigator>

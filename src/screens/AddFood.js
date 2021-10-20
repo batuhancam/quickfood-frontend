@@ -30,7 +30,8 @@ export default class AddFood extends Component {
       }
     }
 
-    openImagePicker = () => {
+    openImagePicker = async () => {
+      const userID = await AsyncStorage.getItem('userID')
       let imageList = [], imagesAWS = []
       ImagePicker.openPicker({
         multiple:true,
@@ -42,12 +43,13 @@ export default class AddFood extends Component {
         mediaType: 'photo',
         includeBase64: true
       }).then(res => {
-        res.map(image => {
+        res.map((image, index) => {
+          console.log(index)
           imageList.push(image.path)
           imagesAWS.push({
-            filename: image.filename,
-            path: image.path,
-            data: image.data
+            name: userID +"-"+index+"-"+image.filename,
+            type: image.mime,
+            uri: image.sourceURL
           })
         })
         this.setState({imagePaths: imageList, imagesAWS: imagesAWS})
