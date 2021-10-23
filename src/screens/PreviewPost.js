@@ -30,103 +30,101 @@ export default class PreviewPost extends Component {
   constructor(props){
     super(props);
     this.state = {
-        foodCategories: [],
-        selectedCategories: []
+        userID: '',
+        fullName: '',
+        food: {},
+        images: [],
+        isLiked: false
     }
 }
-componentDidMount = async () => {
-    const categories = await fetch('http://localhost:3000/categories', {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'},
-    }).then(res=> res.json())
-    this.setState({foodCategories: categories})
+    componentDidMount = async () => {
+        
+    const userID = await AsyncStorage.getItem('userID')
 
-const userID = await AsyncStorage.getItem('userID')
-
-console.log(this.props.route.params.imagesAWS)
+    this.setState({userID: userID})
     
-}
+    const user = await fetch('http://localhost:3000/users/getByUserID',{
+      method: 'POST',
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify({
+        userID: userID
+      })
+    }).then(res => res.json());
 
-renderCategories = () => {
-    return  <View>
-        {
-            Array.prototype.map.call(this.state.foodCategories, (category) => {
-                const categoryName = category.CategoryName
-                
-                return <BouncyCheckbox
-                    size={25}
-                    fillColor="#ff3f34"
-                    unfillColor="transparent"
-                    text={category.CategoryName}
-                    textStyle={{color: '#111'}}
-                    iconStyle={{ borderColor: "red" }}
-                    onPress={(isChecked) => { 
-                        isChecked=!isChecked
-                        if(!isChecked){
-                            this.setState({
-                                selectedCategories: [...this.state.selectedCategories, categoryName] 
-                            })
-                        }
-                        else{
-                            this.setState({
-                                selectedCategories: this.state.selectedCategories.filter(item => item != categoryName)
-                            })
-                        }
-                     }}
-                     
-                    style={styles.checkbox}
-                    key={category.CategoryName}
-                />
-            })
+    console.log(user)
+
+    this.setState({fullName: user.userFullName})
+
+    const images = this.props.route.params.imagesAWS
+
+    images.map(image => {
+      this.setState({images: [...this.state.images, image.uri]})
+    })
+    console.log(this.state.images)
+
+    }
+    nameGenerator = (name) => {
+        name = name.replace(/\s+/g, '-').toLowerCase();
+        name = name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g,'-');
+        return name
+    }
+
+    uploadAWS = () => {
+
+        const imageAWS = this.props.route.params.imagesAWS
+
+        console.log(imageAWS[0])
+        const config = {
+            keyPrefix: 's3/',
+            bucket: 'quickfoodimages',
+            region: 'eu-central-1',
+            accessKey: 'AKIA5YWW7CKE5N3YBJL5',
+            secretKey: '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',
+            successActionStatus: 201
         }
-    </View>
-}
 
-nextButton = () => {
-    this.props.navigation.navigate('Preview', {
-        imagesAWS: this.props.route.params.imagesAWS,
-        foodTitle: this.props.route.params.foodTitle,
-        foodDesc: this.props.route.params.foodDesc,
-        ingredients: this.props.route.params.ingredients,
-        categories: this.state.selectedCategories
-    })
-}
-
-uploadAWS = () => {
-
-    const imageAWS = this.props.route.params.imagesAWS
-
-    console.log(imageAWS[0])
-    const config = {
-        keyPrefix: 's3/',
-        bucket: 'quickfoodimages',
-        region: 'eu-central-1',
-        accessKey: 'AKIA5YWW7CKE5N3YBJL5',
-        secretKey: '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',
-        successActionStatus: 201
-    }
-
-    imageAWS.map(image => {
-        RNS3.put(image, config).then(res=> {
-            console.log(res)
+        imageAWS.map((image, index) => {
+            image.name = this.nameGenerator(this.props.route.params.foodTitle)
+            image.name = this.state.userID + "-" + image.name + "-" + index
+            
+            RNS3.put(image, config).then(res=> {
+                console.log(res)
+            })
         })
-    })
-   
-
-}
-
-render(){
-        return(
-            <View style={styles.container}>
-                <Text>{this.props.route.params.foodTitle}</Text>
-                <Text>{this.props.route.params.ingredients}</Text>
-                <HTMLView
-                    value={this.props.route.params.foodDesc}
-                />      
-                <TouchableOpacity onPress={this.uploadAWS}>
-                    <Text>UPLOAD</Text>
-                </TouchableOpacity>         
-            </View>
-        )
     }
+
+
+    previousButton = () => {
+        this.props.navigation.goBack()
+    }
+
+
+    render(){
+      const {fullName} = this.state
+        return (
+            <View style={styles.container}>
+                <ScrollView style={styles.foods}>
+                  <SliderBox 
+                    images={this.state.images}
+                    sliderBoxHeight={300}
+                    disableOnPress={true}
+                    dotColor="#ff3f34"
+                    inactiveDotColor="#90A4AE" />
+    
+                    <View style={styles.foodHeader}>
+                      <View style={styles.foodTitleView}>
+                        <Text style={styles.foodTitle}>{this.props.route.params.foodTitle} by {fullName}</Text>
+                      </View>
+                      
+                    </View>
+                    <View style={styles.foodDescriptionView}>
+                    <HTMLView
+                        value={this.props.route.params.foodDesc}
+                    />  
+                    </View>
+                </ScrollView>
+            </View>
+          );
+        }
 }
+

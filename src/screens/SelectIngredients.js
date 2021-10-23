@@ -209,6 +209,10 @@ deleteIngredientHandler = (e) => {
     }
     
 }
+
+previousButton = () => {
+    this.props.navigation.goBack()
+}
 nextButton = () => {
     this.props.navigation.navigate('Select Categories', {
       imagesAWS: this.props.route.params.imagesAWS,
@@ -266,7 +270,7 @@ render(){
                   {this.displaySelectedIngredients()}
                 </View>
             </View>
-            <TouchableOpacity style={styles.previousButtonTO}>
+            <TouchableOpacity style={styles.previousButtonTO} onPress={this.previousButton}>
                 <MaterialCommunityIcons name='chevron-left'
                   size = { 25 }
                   style = {styles.previousButtonIcon}

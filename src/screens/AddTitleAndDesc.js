@@ -38,12 +38,57 @@ export default class AddTitleAndDesc extends Component {
       //this.props.route.params.imagesAWS comin' from AddFood Screen
       
     }
-    nextButton = () => {
-      this.props.navigation.navigate('Select Ingredients', {
-        imagesAWS: this.props.route.params.imagesAWS,
-        foodTitle: this.state.foodTitle,
-        foodDesc: this.state.foodDesc
-      })
+    previousButton = () => {
+      this.props.navigation.goBack()
+    }
+    nextButton = async () => {
+      if(this.state.foodDesc.trim() == ""){
+        Alert.alert('Warning', `Food description field can not be empty`,[
+          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+        ]);
+      }
+      else if(this.state.foodDesc.trim().length < 100){
+        Alert.alert('Warning', `Food description is too short`,[
+          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+        ]);
+      }
+      else if(this.state.foodTitle.trim() == ""){
+        Alert.alert('Warning', `Food title field can not be empty`,[
+          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+        ]);
+      }
+      else if(this.state.foodTitle.trim().length < 2){
+        Alert.alert('Warning', `Food title is too short`,[
+          {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+        ]);
+      }
+      else{
+        const userID = await AsyncStorage.getItem('userID');
+        const userFood = await fetch('http://localhost:3000/foods/getbyuserid',{
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            userID: userID
+          })
+        }).then(res => res.json()).then(res => console.log(res))
+
+        console.log(userFood)
+
+        userFood?.map(food => {
+          if(food.foodName == this.state.foodTitle.trim()){ 
+            Alert.alert('Warning', `You already have a food with same name!\nPlease change the food name!`,[
+              {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+            ]);
+            return 'error';
+          } 
+        })
+
+        this.props.navigation.navigate('Select Ingredients', {
+          imagesAWS: this.props.route.params.imagesAWS,
+          foodTitle: this.state.foodTitle.trim(),
+          foodDesc: this.state.foodDesc.trim()
+        })
+      }
     }
    
     render() {
@@ -93,7 +138,7 @@ export default class AddTitleAndDesc extends Component {
               </View>
 
               
-              <TouchableOpacity style={styles.previousButtonTO}>
+              <TouchableOpacity style={styles.previousButtonTO} onPress={this.previousButton}>
                 <MaterialCommunityIcons name='chevron-left'
                   size = { 25 }
                   style = {styles.previousButtonIcon}

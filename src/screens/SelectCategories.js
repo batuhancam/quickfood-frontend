@@ -77,6 +77,9 @@ renderCategories = () => {
     </View>
 }
 
+previousButton = () => {
+    this.props.navigation.goBack()
+  }
 nextButton = () => {
     this.props.navigation.navigate('Preview Post', {
         imagesAWS: this.props.route.params.imagesAWS,
@@ -93,7 +96,7 @@ render(){
                <View>
                    {this.renderCategories()}
                </View>
-               <TouchableOpacity style={styles.previousButtonTO}>
+               <TouchableOpacity style={styles.previousButtonTO} onPress={this.previousButton}>
                 <MaterialCommunityIcons name='chevron-left'
                   size = { 25 }
                   style = {styles.previousButtonIcon}
