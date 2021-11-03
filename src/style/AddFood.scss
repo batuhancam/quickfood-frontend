@@ -90,3 +90,10 @@
     color: #FFF;
     margin-left: 4px;
 }
+
+.loading{
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    opacity: .9;
+}

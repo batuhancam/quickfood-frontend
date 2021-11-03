@@ -49,7 +49,7 @@ export default class Food extends Component {
             res.json()
         )
         food.foodPicturePaths = Array.prototype.map.call(food.foodPicturePaths, path => {
-          path = "http://localhost:8081/"+path
+          path = path
           return path
         })
         if(food.foodPicturePaths.length == 0) {
@@ -71,6 +71,7 @@ export default class Food extends Component {
             foodID: foodID
           })
         }).then(res => res.json());
+        console.log(food.foodPicturePaths)
         this.setState({food: food, images: food.foodPicturePaths, fullName: user.userFullName, isLiked: isPostLiked.status})
     }
     

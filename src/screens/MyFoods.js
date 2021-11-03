@@ -47,7 +47,9 @@ export default class MyFoods extends Component {
         }).then(res=> 
             res.json()
         )
+        console.log(foods)
         this.setState({foods: foods})
+        
     }
     
   

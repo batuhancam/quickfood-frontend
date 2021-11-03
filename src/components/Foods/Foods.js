@@ -108,6 +108,7 @@ export default class Foods extends Component {
 
         return Array.prototype.map.call(foods, (food,index) => {
             const foodImage = food.foodPicturePaths[0] != null ? food.foodPicturePaths[0] : 'src/images/defaultFoodImage.jpg';          
+            const defaultPic = food.foodPicturePaths[0] != null ? 1 : 0;
             
             while(true){
               if(favs.length>this.state.favFoods.length){
@@ -125,6 +126,7 @@ export default class Foods extends Component {
                 <View style={styles.food} >
                     <ImageDisplayer
                         path={foodImage}
+                        default={0}
                     />
                     <View style={styles.foodDescView}>
                       <Text style={styles.foodTitle}>{food.foodName}</Text>

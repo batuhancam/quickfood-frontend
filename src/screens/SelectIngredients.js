@@ -214,6 +214,12 @@ previousButton = () => {
     this.props.navigation.goBack()
 }
 nextButton = () => {
+    if(this.state.selectedIngredients.length <= 1){
+        Alert.alert('Warning', `You must select at least 2 ingredients for your food!`,[
+            {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+          ]);
+          return;
+    }
     this.props.navigation.navigate('Select Categories', {
       imagesAWS: this.props.route.params.imagesAWS,
       foodTitle: this.props.route.params.foodTitle,
