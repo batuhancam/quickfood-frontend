@@ -23,14 +23,16 @@ import { SliderBox } from "react-native-image-slider-box";
 import { createIconSetFromFontello } from "react-native-vector-icons";
 import {actions, getContentCSS, RichEditor, RichToolbar} from 'react-native-pell-rich-editor';
 import SearchInput from "../components/SearchInput/SearchInput";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+import BouncyCheckboxGroup, {
+    ICheckboxButton,
+  } from "react-native-bouncy-checkbox-group";
 
 export default class SelectCategories extends Component {
   constructor(props){
     super(props);
     this.state = {
         foodCategories: [],
-        selectedCategories: []
+        selectedCategory: ''
     }
 }
 componentDidMount = async () => {
@@ -38,55 +40,70 @@ componentDidMount = async () => {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     }).then(res=> res.json())
-    this.setState({foodCategories: categories})
+    const foodCategories = []
+    categories.map((category, index)=> {
+        foodCategories.push({
+            id: index,
+            text: category.CategoryName,
+            fillColor: "#ff3f34",
+            unfillColor: "#ffe4e2",
+            iconStyle: this._iconStyle("#ff3f34"),
+            textStyle: styles.textStyle,
+            iconImageStyle: styles.iconImageStyle,
+        })
+    })
+    this.setState({foodCategories: foodCategories})
     
 }
-
+ _iconStyle = (borderColor) => ({
+    height: 25,
+    width: 25,
+    borderRadius: 25,
+    borderColor: borderColor,
+    marginTop: 10,
+  });
 renderCategories = () => {
-    return  <View>
-        {
-            Array.prototype.map.call(this.state.foodCategories, (category) => {
-                const categoryName = category.CategoryName
-                
-                return <BouncyCheckbox
-                    size={25}
-                    fillColor="#ff3f34"
-                    unfillColor="transparent"
-                    text={category.CategoryName}
-                    textStyle={{color: '#111'}}
-                    iconStyle={{ borderColor: "red" }}
-                    onPress={(isChecked) => { 
-                        isChecked=!isChecked
-                        if(!isChecked){
-                            this.setState({
-                                selectedCategories: [...this.state.selectedCategories, categoryName] 
-                            })
-                        }
-                        else{
-                            this.setState({
-                                selectedCategories: this.state.selectedCategories.filter(item => item != categoryName)
-                            })
-                        }
-                     }}
-                     
-                    style={styles.checkbox}
-                    key={category.CategoryName}
-                />
-            })
-        }
-    </View>
+    
+    return  <>
+        <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 24, marginBottom: 5 }}>
+            <Text style={{ color: "#a8a8ac", fontWeight: "500", fontSize: 16 }}>
+                Please select a category from the options below
+            </Text>
+        </View>
+        <View
+        style={{
+            marginTop: 5,
+            marginLeft: 10,
+            justifyContent: "center",
+        }}
+        >
+        <BouncyCheckboxGroup
+            data={this.state.foodCategories}
+            style={{ flexDirection: "column" }}
+            onChange={(selectedItem) => {
+                this.setState({selectedCategory: selectedItem.text})
+            }}
+        />
+        </View>
+    </>
 }
 
 previousButton = () => {
     this.props.navigation.goBack()
   }
 nextButton = () => {
+    if(this.state.selectedCategory.length <= 0){
+        Alert.alert('Warning', `You must select a category for your food!`,[
+            {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
+          ]);
+          return;
+    }
     this.props.navigation.navigate('Preview Post', {
         imagesAWS: this.props.route.params.imagesAWS,
         foodTitle: this.props.route.params.foodTitle,
         foodDesc: this.props.route.params.foodDesc,
         ingredients: this.props.route.params.ingredients,
-        categories: this.state.selectedCategories
+        categories: this.state.selectedCategory
     })
 }
 

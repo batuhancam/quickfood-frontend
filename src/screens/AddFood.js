@@ -82,7 +82,10 @@ export default class AddFood extends Component {
     render() {
       return (
         <View style={styles.container}>
-            
+          {/* <Image 
+                source={require('./../images/loading2.gif')}  
+                style={styles.loading} 
+            /> */}
               {this.state.imagePaths.length == 0 ? 
               <TouchableOpacity style={styles.addFoodImageTO} onPress={this.openImagePicker}>
                 <View style={styles.addFoodImageView}>

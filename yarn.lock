@@ -6654,6 +6654,11 @@ react-native-bottom-search-bar@^0.1.3:
   resolved "https://registry.yarnpkg.com/react-native-bottom-search-bar/-/react-native-bottom-search-bar-0.1.3.tgz#8a29c838470993d1afb7803af8c8d4ef646bc50a"
   integrity sha512-im72UyXMBB02AMBDi22Kldlj7JDrUIpWcpb/Gsy2ODttNDdI1EGoOnPtOYhm+HLoCuFADS60w4LxtdUrwC7AQQ==
 
+react-native-bouncy-checkbox-group@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-bouncy-checkbox-group/-/react-native-bouncy-checkbox-group-0.1.0.tgz#ce38bb70f42d764f0984953cfc8fb2d38dac2857"
+  integrity sha512-ip9vEJOmI2hriuARKyI6mxJvH0ZSwZTbUEOHioMsfH+B7zFZ+a7DNUlyV59T24/7D+R8eu8+mgveRHP5yGXLtg==
+
 react-native-bouncy-checkbox@^2.1.7:
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/react-native-bouncy-checkbox/-/react-native-bouncy-checkbox-2.1.7.tgz#531b40b82d1ce173509b4af1b2c7b84119f1a876"
