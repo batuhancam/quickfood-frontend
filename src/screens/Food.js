@@ -20,7 +20,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import HTMLView from 'react-native-htmlview';
 import { SliderBox } from "react-native-image-slider-box";
 
 import styles from '../style/Food.scss';
@@ -114,7 +114,11 @@ export default class Food extends Component {
                   />
                 </View>
                 <View style={styles.foodDescriptionView}>
-                  <Text style={styles.foodDescription}>{food.foodDescription}</Text>
+                  <Text style={styles.foodDescription}></Text>
+                  <HTMLView
+                    style={styles.foodDescription}
+                    value={food.foodDescription}
+                  />  
                 </View>
             </View>
         </View>

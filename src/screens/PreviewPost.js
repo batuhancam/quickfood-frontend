@@ -14,6 +14,7 @@ import {
   Alert,
   AsyncStorage,
   Appearance,
+  ActivityIndicator
 } from "react-native";
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -36,7 +37,10 @@ export default class PreviewPost extends Component {
         images: [],
         isLiked: false,
         picturePaths: [],
-        categoryID: ''
+        categoryID: '',
+        ingredientIDs: [],
+        loading: false,
+        activityIndicatorViewStyle: {display: 'none'}
     }
 }
   componentDidMount = async () => {
@@ -60,7 +64,6 @@ export default class PreviewPost extends Component {
     images.map(image => {
       this.setState({images: [...this.state.images, image.uri]})
     })
-    console.log(this.props.route.params)
     const category = await fetch('http://localhost:3000/categories/getByCategoryName',{
       method: 'POST',
       headers: {'Content-type': 'application/json'},
@@ -69,12 +72,20 @@ export default class PreviewPost extends Component {
       })
     }).then(res => res.json());
     
+    const ingredients = await fetch('http://localhost:3000/ingredients/getByIngredientName',{
+      method: 'POST',
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify({
+        ingredientName: this.props.route.params.ingredients
+      })
+    }).then(res => res.json());
  
+    ingredients.map(ingredient => {
+      this.setState({ingredientIDs: [...this.state.ingredientIDs, ingredient._id]})
+    })
+
     this.setState({userID: userID, categoryID: category[0]._id})
-
-
-    
-
+    console.log(this.state.userID)
 }
 
   nameGenerator = (name) => {
@@ -83,28 +94,56 @@ export default class PreviewPost extends Component {
     return name
   }
 
-  uploadAWS = () => {
 
+  previousButton = () => {
+    this.props.navigation.goBack()
+  }
+  
+  postButton = async () => {
+   
+    
+    this.setState({loading: true,
+      activityIndicatorViewStyle: {position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', backgroundColor: '#000', opacity: .5, zIndex: 999}
+    })
     const imageAWS = this.props.route.params.imagesAWS
-
     const config = {
-        keyPrefix: 's3/',
-        bucket: 'quickfoodimages',
-        region: 'eu-central-1',
-        accessKey: 'AKIA5YWW7CKE5N3YBJL5',
-        secretKey: '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',
-        successActionStatus: 201
+      keyPrefix: 's3/',
+      bucket: 'quickfoodimages',
+      region: 'eu-central-1',
+      accessKey: 'AKIA5YWW7CKE5N3YBJL5',
+      secretKey: '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',
+      successActionStatus: 201
     }
 
     imageAWS.map((image, index) => {
       image.name = this.nameGenerator(this.props.route.params.foodTitle)
       image.name = this.state.userID + "-" + image.name + "-" + index
-      
+
       RNS3.put(image, config).then(res=> {
-          this.setState({picturePaths: [...this.state.picturePaths, res.body.postResponse.location]})
-          console.log(res)
+        this.setState({picturePaths: [...this.state.picturePaths, res.body.postResponse.location]})
       }).then(res => {
+      }).then(res=> {
+        this.setState({
+          loading: false,
+          activityIndicatorViewStyle: {display: 'none'}
+        })
+      }).then(async (res)=> {
         console.log(this.state.picturePaths)
+        const postFood = await fetch('http://localhost:3000/foods/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            foodName : this.props.route.params.foodTitle,
+            foodDescription : this.props.route.params.foodDesc,
+            foodStatus : 5,
+            foodActivity : true,
+            foodPicturePaths : this.state.picturePaths,
+            ingredientIDs : this.state.ingredientIDs,
+            categoryID : this.state.categoryID,
+            userID : this.state.userID
+        })}).then(res=> {
+          this.props.navigation.navigate('Home')
+        })
       })
     })
 
@@ -112,33 +151,19 @@ export default class PreviewPost extends Component {
   }
 
 
-  previousButton = () => {
-    this.props.navigation.goBack()
-  }
-  
-  postButton = async() => {
-      await this.uploadAWS();
-      const postFood = await fetch('http://localhost:3000/foods/add', {
-        method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            foodName: this.props.route.params.foodTitle,
-            foodDescriptionView: this.props.route.params.foodDesc,
-            foodStatus: 1,
-            foodActivity: true,
-            foodPicturePaths: this.state.picturePaths,
-            ingredientIDs: this.state.ingredientIDs,
-            categoryID: this.state.categoryID,
-            userID: this.state.userID
-        })
-      }) 
-  }
-
-
   render(){
     const {fullName} = this.state
     return (
         <View style={styles.container}>
+          <View style={this.state.activityIndicatorViewStyle}>
+            <Text>Loading..</Text>
+            <ActivityIndicator 
+              animating={this.state.loading}
+              textContent={'Loading...'}
+              size='large'
+              style={[styles.activityIndicator]}
+            />
+          </View>
           <ScrollView style={styles.foods}>
             <SliderBox 
               images={this.state.images}
@@ -159,7 +184,7 @@ export default class PreviewPost extends Component {
               />  
               </View>
           </ScrollView>
-          <TouchableOpacity style={styles.nextButtonTO} onPress={this.uploadAWS}>
+          <TouchableOpacity style={styles.nextButtonTO} onPress={this.postButton}>
             <Text style={styles.nextButtonTitle}>POST</Text>
             <MaterialCommunityIcons name='chevron-right'
               size = { 25 }
