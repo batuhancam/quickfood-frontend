@@ -47,7 +47,7 @@ export default class AddTitleAndDesc extends Component {
           {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
         ]);
       }
-      else if(this.state.foodDesc.trim().length < 100){
+      else if(this.state.foodDesc.trim().length < 1){
         Alert.alert('Warning', `Food description is too short`,[
           {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
         ]);
@@ -57,7 +57,7 @@ export default class AddTitleAndDesc extends Component {
           {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
         ]);
       }
-      else if(this.state.foodTitle.trim().length < 2){
+      else if(this.state.foodTitle.trim().length < 1){
         Alert.alert('Warning', `Food title is too short`,[
           {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
         ]);
@@ -70,16 +70,14 @@ export default class AddTitleAndDesc extends Component {
           body: JSON.stringify({
             userID: userID
           })
-        }).then(res => res.json()).then(res => console.log(res))
-
-        console.log(userFood)
+        }).then(res => res.json())
 
         userFood?.map(food => {
           if(food.foodName == this.state.foodTitle.trim()){ 
             Alert.alert('Warning', `You already have a food with same name!\nPlease change the food name!`,[
               {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
             ]);
-            return 'error';
+            return;
           } 
         })
 

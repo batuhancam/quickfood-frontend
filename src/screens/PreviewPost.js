@@ -141,15 +141,20 @@ export default class PreviewPost extends Component {
             ingredientIDs : this.state.ingredientIDs,
             categoryID : this.state.categoryID,
             userID : this.state.userID
-        })}).then(res=> {
-          this.props.navigation.navigate('Home')
+        })}).then(res=> 
+          res.json()
+        ).then(res => {
+          AsyncStorage.setItem('foodID', res._id);
+          this.props.navigation.navigate('Add Food', {navigatedFrom: 1, name: res.foodTitle });
         })
       })
     })
 
-    
   }
 
+  refresh = () => {
+    console.log('asd444');
+  }
 
   render(){
     const {fullName} = this.state
@@ -184,6 +189,13 @@ export default class PreviewPost extends Component {
               />  
               </View>
           </ScrollView>
+          <TouchableOpacity style={styles.previousButtonTO} onPress={this.previousButton}>
+                <MaterialCommunityIcons name='chevron-left'
+                  size = { 25 }
+                  style = {styles.previousButtonIcon}
+                  color = '#FFF'/>
+                <Text style={styles.previousButtonTitle}>Back</Text>
+              </TouchableOpacity>
           <TouchableOpacity style={styles.nextButtonTO} onPress={this.postButton}>
             <Text style={styles.nextButtonTitle}>POST</Text>
             <MaterialCommunityIcons name='chevron-right'

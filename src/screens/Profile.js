@@ -106,7 +106,7 @@ export default class Profile extends Component {
                                   style = {{ marginRight: 0 }}
                                   color = '#e22218' />
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.profileListItem}>
+                      <TouchableOpacity style={styles.profileListItem} onPress={() => this.props.navigation.navigate('Favorites')}>
                             <View style={styles.profileListItemLeftAlignment}>
                               <MaterialCommunityIcons name = 'star-outline'
                                   size = { 25 }

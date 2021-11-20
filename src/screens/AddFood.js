@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, forceUpdate } from "react";
 import {
   View,
   ScrollView,
@@ -13,7 +13,8 @@ import {
   Animated,
   Alert,
   AsyncStorage,
-  Appearance
+  Appearance,
+  TouchableOpacityBase
 } from "react-native";
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -75,17 +76,21 @@ export default class AddFood extends Component {
         this.props.navigation.navigate('Add Title and Description', {imagesAWS: this.state.imagesAWS})
       }
     }
-    componentDidMount = async() => {
+    componentDidMount = () => {
+      const { navigation } = this.props;
+
+      this.focusListener = navigation.addListener('focus', () => {
+        this.setState({imagePaths: [], imageAWS: []});
+        if(this?.props?.route?.params?.navigatedFrom == 1){
+          navigation.navigate('MyFoods', {name: this.props.route.params.name})
+        }
+      })
       
     }
-   
+  
     render() {
       return (
         <View style={styles.container}>
-          {/* <Image 
-                source={require('./../images/loading2.gif')}  
-                style={styles.loading} 
-            /> */}
               {this.state.imagePaths.length == 0 ? 
               <TouchableOpacity style={styles.addFoodImageTO} onPress={this.openImagePicker}>
                 <View style={styles.addFoodImageView}>

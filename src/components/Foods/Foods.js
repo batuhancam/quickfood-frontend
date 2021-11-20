@@ -23,8 +23,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ImageDisplayer from "./imageDisplayer";
 import styles from './Foods.scss';
-import ReactNativeComponentTree from'react-native';
-import { throwStatement } from "@babel/types";
 
 export default class Foods extends Component {
     constructor (props) {
@@ -60,11 +58,11 @@ export default class Foods extends Component {
        
         this.setState({favorites: favoriteFoods, favFoods: favs})
     }
-    componentDidMount = async( ) => {
-
+    componentDidMount = ( ) => {
+      
       this.loadData();
 
-      this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.focusListener = this.props.navigation.addListener('willFocus', () => {
         this.loadData();
         //Put your Data loading function here instead of my this.loadData()
       });
@@ -96,7 +94,6 @@ export default class Foods extends Component {
 
 
     displayFoods =  () => {
-
         const foods = this.props.allFoods;
         const {favorites} = this.state;
         let favs
@@ -124,10 +121,23 @@ export default class Foods extends Component {
                 this.props.navigation.navigate('Food', {name: food.foodName})
               }}>
                 <View style={styles.food} >
-                    <ImageDisplayer
-                        path={foodImage}
-                        default={0}
-                    />
+                    {foodImage ?
+                      <ImageDisplayer
+                          path={foodImage}
+                          default={0}
+                      />
+                      :
+                      <ContentLoader
+                        width={550}
+                        height={450}
+                        backgroundColor="#f0f0f0"
+                        foregroundColor="#dedede"
+                      >
+                        <Rect x="0" y="304" rx="4" ry="4" width="271" height="9" />
+                        <Rect x="0" y="323" rx="3" ry="3" width="119" height="6" />
+                        <Rect x="0" y="20" rx="10" ry="10" width="388" height="217" />
+                      </ContentLoader>
+                    }
                     <View style={styles.foodDescView}>
                       <Text style={styles.foodTitle}>{food.foodName}</Text>
                       <MaterialCommunityIcons name={this.state.favFoods.includes(food._id) ? 'star': 'star-outline'}
@@ -156,6 +166,7 @@ export default class Foods extends Component {
    
   
     render() {
+      console.log(this.props.allFoods)
       return (
         <ScrollView style={styles.container} > 
             {this.displayFoods()}

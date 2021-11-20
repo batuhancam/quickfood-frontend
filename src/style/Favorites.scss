@@ -1,0 +1,15 @@
+.container {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+}
+
+.foods {
+    flex: 1;
+    flex-direction: column;
+    border-bottom-color: #DDD;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    width: 100%;
+    height: 100%;
+}

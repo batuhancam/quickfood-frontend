@@ -22,6 +22,7 @@ import AddTitleAndDesc from '../src/screens/AddTitleAndDesc';
 import SelectIngredients from '../src/screens/SelectIngredients';
 import SelectCategories from '../src/screens/SelectCategories';
 import PreviewPost from '../src/screens/PreviewPost';
+import Favorites from '../src/screens/Favorites';
 
 const BottomTab = createBottomTabNavigator();
 const Tab = createStackNavigator();
@@ -51,8 +52,13 @@ function ProfileNavigator() {
 }
 function AddFoodNavigator(){
   return(
-    <Tab.Navigator initialRouteName='Add Image'>
-      <Tab.Screen name="Upload Image" component={AddFood} />
+    <Tab.Navigator initialRouteName='Add Food'>
+      <Tab.Screen name="Add Food" component={AddFood}  
+        options={({ route }) => ({ 
+            navigatedFrom: route.params?.navigatedFrom,
+            name: route.params?.name
+          })} 
+      />
       <Tab.Screen name="Add Title and Description" component={AddTitleAndDesc} 
         options={({ route }) => ({ 
           imagesAWS: route.params.imagesAWS
@@ -140,6 +146,7 @@ export default function Navigator({navigation, route}) {
             tabBarInactiveTintColor:'#a0a0a0',
             tabBarShowLabel: false,
             headerShown: false,  
+            navigatedFrom: 0,
             tabBarIcon: (focused) => <TabBarIcon
               name="plus-box-outline"
               focused={focused}
@@ -149,13 +156,14 @@ export default function Navigator({navigation, route}) {
         }
         />
         <BottomTab.Screen
-          name="Favorite"
-          component={Intro}
+          name="Favorites"
+          component={Favorites}
           options={{
             title: 'Favorite',
             tabBarActiveTintColor:'#ff3f34',
             tabBarInactiveTintColor:'#a0a0a0',
             tabBarShowLabel: false,
+            headerShown: true,
             tabBarIcon: (focused) => <TabBarIcon
               name={focused.focused ? 'star' : 'star-outline'}
               focused={focused}
@@ -163,7 +171,6 @@ export default function Navigator({navigation, route}) {
             />
           }}
         />
-        {console.log(loginAuth)}
         {
           loginAuth == '0' ?
             <BottomTab.Screen

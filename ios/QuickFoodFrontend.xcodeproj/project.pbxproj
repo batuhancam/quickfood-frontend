@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* QuickFoodFrontendTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* QuickFoodFrontendTests.m */; };
-		01F4D9C0858FCB6E62CA4E61 /* Pods_QuickFoodFrontend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F31EAAC9969881E03FB6C00B /* Pods_QuickFoodFrontend.framework */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		98AECE07885B8AFABEFB6E3F /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD341A4762207DF7492E4E6 /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework */; };
+		B89AAEABFCDB077D2D315C59 /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01152C2FAA7ABF9891C54D98 /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework */; };
+		E4A18C3EA606FF34DACD2731 /* Pods_QuickFoodFrontend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093BD8A3853F7CE5A7BCB08A /* Pods_QuickFoodFrontend.framework */; };
 		E572ED3626DE014B00D5D8FE /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = E572ED3526DE014B00D5D8FE /* fonts */; };
 /* End PBXBuildFile section */
 
@@ -31,21 +31,21 @@
 		00E356EE1AD99517003FC87E /* QuickFoodFrontendTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickFoodFrontendTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* QuickFoodFrontendTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickFoodFrontendTests.m; sourceTree = "<group>"; };
+		01152C2FAA7ABF9891C54D98 /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		093BD8A3853F7CE5A7BCB08A /* Pods_QuickFoodFrontend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickFoodFrontend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* QuickFoodFrontend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickFoodFrontend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = QuickFoodFrontend/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = QuickFoodFrontend/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = QuickFoodFrontend/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = QuickFoodFrontend/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = QuickFoodFrontend/main.m; sourceTree = "<group>"; };
-		4FD341A4762207DF7492E4E6 /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4026194AF0A9013BA986D07E /* Pods-QuickFoodFrontend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFoodFrontend.release.xcconfig"; path = "Target Support Files/Pods-QuickFoodFrontend/Pods-QuickFoodFrontend.release.xcconfig"; sourceTree = "<group>"; };
+		65E25F80C5750B257F1DBE39 /* Pods-QuickFoodFrontend.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFoodFrontend.debug.xcconfig"; path = "Target Support Files/Pods-QuickFoodFrontend/Pods-QuickFoodFrontend.debug.xcconfig"; sourceTree = "<group>"; };
+		771F43C776D3B38944F08C82 /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig"; path = "Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = QuickFoodFrontend/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8DCC327508FBF4248F1FB15C /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig"; path = "Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig"; sourceTree = "<group>"; };
-		B3E87183D955B796C4177FDC /* Pods-QuickFoodFrontend.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFoodFrontend.debug.xcconfig"; path = "Target Support Files/Pods-QuickFoodFrontend/Pods-QuickFoodFrontend.debug.xcconfig"; sourceTree = "<group>"; };
-		C9D1B5A93656F2119191D673 /* Pods-QuickFoodFrontend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFoodFrontend.release.xcconfig"; path = "Target Support Files/Pods-QuickFoodFrontend/Pods-QuickFoodFrontend.release.xcconfig"; sourceTree = "<group>"; };
-		E50961F6CEB4662EB0973516 /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig"; path = "Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8C26B302F9DEBE28371FBD2F /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig"; path = "Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E572ED3526DE014B00D5D8FE /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F31EAAC9969881E03FB6C00B /* Pods_QuickFoodFrontend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickFoodFrontend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98AECE07885B8AFABEFB6E3F /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework in Frameworks */,
+				B89AAEABFCDB077D2D315C59 /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01F4D9C0858FCB6E62CA4E61 /* Pods_QuickFoodFrontend.framework in Frameworks */,
+				E4A18C3EA606FF34DACD2731 /* Pods_QuickFoodFrontend.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,8 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				F31EAAC9969881E03FB6C00B /* Pods_QuickFoodFrontend.framework */,
-				4FD341A4762207DF7492E4E6 /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework */,
+				093BD8A3853F7CE5A7BCB08A /* Pods_QuickFoodFrontend.framework */,
+				01152C2FAA7ABF9891C54D98 /* Pods_QuickFoodFrontend_QuickFoodFrontendTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -144,10 +144,10 @@
 		9775114F03CDD3B992FC6C71 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B3E87183D955B796C4177FDC /* Pods-QuickFoodFrontend.debug.xcconfig */,
-				C9D1B5A93656F2119191D673 /* Pods-QuickFoodFrontend.release.xcconfig */,
-				E50961F6CEB4662EB0973516 /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig */,
-				8DCC327508FBF4248F1FB15C /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig */,
+				65E25F80C5750B257F1DBE39 /* Pods-QuickFoodFrontend.debug.xcconfig */,
+				4026194AF0A9013BA986D07E /* Pods-QuickFoodFrontend.release.xcconfig */,
+				8C26B302F9DEBE28371FBD2F /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig */,
+				771F43C776D3B38944F08C82 /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -166,11 +166,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "QuickFoodFrontendTests" */;
 			buildPhases = (
-				385BCB1781DA1351ABD56B90 /* [CP] Check Pods Manifest.lock */,
+				4AF8775629F8916574883CDD /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				EE4CA4B2AAAE8BC8AF1307D8 /* [CP] Embed Pods Frameworks */,
+				A56145B60C6BAC29FEC8A6BF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -186,13 +186,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "QuickFoodFrontend" */;
 			buildPhases = (
-				F55C596179D04D464524EFA8 /* [CP] Check Pods Manifest.lock */,
+				96DF7F12F79D123BDF38B4F9 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				BFDDAA68E70F6E4DFF106DCE /* [CP] Embed Pods Frameworks */,
+				4C198F6CD15AED9DCFA4516D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -274,7 +274,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		385BCB1781DA1351ABD56B90 /* [CP] Check Pods Manifest.lock */ = {
+		4AF8775629F8916574883CDD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -296,7 +296,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BFDDAA68E70F6E4DFF106DCE /* [CP] Embed Pods Frameworks */ = {
+		4C198F6CD15AED9DCFA4516D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -313,24 +313,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuickFoodFrontend/Pods-QuickFoodFrontend-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EE4CA4B2AAAE8BC8AF1307D8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F55C596179D04D464524EFA8 /* [CP] Check Pods Manifest.lock */ = {
+		96DF7F12F79D123BDF38B4F9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -350,6 +333,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A56145B60C6BAC29FEC8A6BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuickFoodFrontend-QuickFoodFrontendTests/Pods-QuickFoodFrontend-QuickFoodFrontendTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -404,7 +404,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E50961F6CEB4662EB0973516 /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig */;
+			baseConfigurationReference = 8C26B302F9DEBE28371FBD2F /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -431,7 +431,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8DCC327508FBF4248F1FB15C /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig */;
+			baseConfigurationReference = 771F43C776D3B38944F08C82 /* Pods-QuickFoodFrontend-QuickFoodFrontendTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -455,7 +455,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3E87183D955B796C4177FDC /* Pods-QuickFoodFrontend.debug.xcconfig */;
+			baseConfigurationReference = 65E25F80C5750B257F1DBE39 /* Pods-QuickFoodFrontend.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -526,7 +526,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C9D1B5A93656F2119191D673 /* Pods-QuickFoodFrontend.release.xcconfig */;
+			baseConfigurationReference = 4026194AF0A9013BA986D07E /* Pods-QuickFoodFrontend.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

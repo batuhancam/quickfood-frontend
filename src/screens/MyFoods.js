@@ -20,6 +20,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 
 import styles from '../style/MyFoods.scss';
 import Foods from '../components/Foods/Foods'
@@ -48,7 +49,7 @@ export default class MyFoods extends Component {
             res.json()
         )
         console.log(foods)
-        this.setState({foods: foods})
+        this.setState({foods: foods.reverse()})
         
     }
     

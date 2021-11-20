@@ -22,6 +22,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HTMLView from 'react-native-htmlview';
 import { SliderBox } from "react-native-image-slider-box";
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 
 import styles from '../style/Food.scss';
 
@@ -37,8 +38,8 @@ export default class Food extends Component {
       }
     }
 
-    componentDidMount = async() => {
-        const foodID = await AsyncStorage.getItem('foodID')
+    fetchData = async () => {
+      const foodID = await AsyncStorage.getItem('foodID')
         const food = await fetch('http://localhost:3000/foods/getByID', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -73,6 +74,13 @@ export default class Food extends Component {
         }).then(res => res.json());
         console.log(food.foodPicturePaths)
         this.setState({food: food, images: food.foodPicturePaths, fullName: user.userFullName, isLiked: isPostLiked.status})
+    }
+    componentDidMount = () => {
+      const { navigation } = this.props;
+      this.fetchData();
+      this.focusListener = navigation.addListener('focus', () => {
+        this.fetchData();
+      })
     }
     
     switchLike = async() => {
