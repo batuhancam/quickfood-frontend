@@ -27,7 +27,8 @@ export default class AddFood extends Component {
       super(props);
       this.state = {
         imagePaths: [],
-        imagesAWS: []
+        imagesAWS: [],
+        navigated: false
       }
     }
 
@@ -81,8 +82,14 @@ export default class AddFood extends Component {
 
       this.focusListener = navigation.addListener('focus', () => {
         this.setState({imagePaths: [], imageAWS: []});
-        if(this?.props?.route?.params?.navigatedFrom == 1){
-          navigation.navigate('MyFoods', {name: this.props.route.params.name})
+        if(this?.props?.route?.params?.navigatedFrom == 1 && this.state.navigated === false){
+          this.setState({navigated: true}) 
+          navigation.navigate('Profile', {
+            screen: 'MyFoods',
+            params: { name: this.props.route.params.name },
+          });
+          
+          // navigation.navigate('MyFoods', {name: this.props.route.params.name})
         }
       })
       

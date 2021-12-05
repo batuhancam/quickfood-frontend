@@ -30,7 +30,7 @@ export default class Home extends Component {
           />
         </View>
        
-        <SearchInput/>
+        <SearchInput navigation={this.props.navigation}/>
 
 
         {/* <View style={styles.bottomMenu}>

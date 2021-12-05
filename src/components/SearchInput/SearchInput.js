@@ -1,38 +1,23 @@
 import React, { Component } from 'react';
 import {KeyboardAvoidingView, View, TextInput, Text, TouchableOpacity, Image, ScrollView, Animated, Keyboard, Alert, TouchableWithoutFeedback} from "react-native";
+import { createIconSetFromFontello } from 'react-native-vector-icons';
 import styles from './SearchInput.scss' 
 
 export default class SearchInput extends Component {
 
     constructor(props){
         super(props);
-        this.ingredients = [
-            'Apple',
-            'Apple2',
-            'Pineapple',
-            'Brocoli',
-            'Bread',
-            'Bread1',
-            'Bread2',
-            'Bread3',
-            'Bread4',
-            'Bread5',
-            'Water',
-            'Wat 2',
-            'Soy S2auce',
-            'Soy Sauce',
-            'Chicken',
-            'Pork',
-        ];
 
         this.state = {
             suggestion: [],
             selectedIngredients: [],
+            selectedIngredientIDs: [],
             inputValue : "",
             toggle: false,
             cancelToggle: false,
             addToggle: false,
-            searchToggle: false
+            searchToggle: false,
+            ingredients: []
         }
         const toggle = false
         
@@ -92,7 +77,10 @@ export default class SearchInput extends Component {
                 addToggle: true,
                 searchToggle: false
             })
-            suggestions = this.ingredients.sort().filter(v => regex.test(v))
+            const ingredients = Array.prototype.sort.call(this.state.ingredients, (a,b) => (a.ingredientName > b.ingredientName) ? 1 : -1)
+            console.log(ingredients)
+            suggestions = Array.prototype.filter.call(ingredients, v => regex.test(v.ingredientName))
+            console.log(suggestions)
         }
         this.setState({suggestion: suggestions})
     }
@@ -105,8 +93,8 @@ export default class SearchInput extends Component {
             return  <ScrollView style={styles.suggestionContainer1} >
             {
                 suggestion.map((ingredient, i) => (
-                    <TouchableOpacity style={(i === suggestion.length - 1 && suggestion.length > 3 ) ? styles.suggestionLastElement : styles.suggestionElement} key={ingredient} onPress={this.handleClickIngredientElement}>
-                        <Text  key={ingredient}>{ingredient}</Text>
+                    <TouchableOpacity style={(i === suggestion.length - 1 && suggestion.length > 3 ) ? styles.suggestionLastElement : styles.suggestionElement} key={ingredient.ingredientName} onPress={this.handleClickIngredientElement}>
+                        <Text  key={ingredient.ingredientName}>{ingredient.ingredientName}</Text>
                     </TouchableOpacity>
                 ))
             }
@@ -115,8 +103,8 @@ export default class SearchInput extends Component {
         return  <ScrollView style={styles.suggestionContainer} >
         {
             suggestion.map((ingredient, i) => (
-                <TouchableOpacity style={(i === suggestion.length - 1 && suggestion.length > 3 ) ? styles.suggestionLastElement : styles.suggestionElement} key={ingredient} onPress={this.handleClickIngredientElement}>
-                    <Text  key={ingredient}>{ingredient}</Text>
+                <TouchableOpacity style={(i === suggestion.length - 1 && suggestion.length > 3 ) ? styles.suggestionLastElement : styles.suggestionElement} key={ingredient.ingredientName} onPress={this.handleClickIngredientElement}>
+                    <Text  key={ingredient.ingredientName}>{ingredient.ingredientName}</Text>
                 </TouchableOpacity>
             ))
         }
@@ -125,7 +113,11 @@ export default class SearchInput extends Component {
 
     addIngredientsHandler = () => {
         const selectedIngredients = this.state.selectedIngredients
-        if(this.ingredients.includes(this.state.inputValue) && !selectedIngredients.includes(this.state.inputValue)){
+        // const selectedIngredientIDs = []
+
+
+
+        if(!selectedIngredients.includes(this.state.inputValue)){
             selectedIngredients.push(this.state.inputValue)
             this.setState({
                 ...this.state,
@@ -134,7 +126,7 @@ export default class SearchInput extends Component {
                 searchToggle: true,
                 addToggle: false
             })
-        }else if(!this.ingredients.includes(this.state.inputValue) && this.state.inputValue != ''){
+        }else if(this.state.inputValue != ''){
             Alert.alert('Entry Not Found', `I am sorry :( I can not find any ingredient named '${this.state.inputValue}'`,[
                 {text: 'Try Again', onPress: () => {console.log('alert box closed')}}
             ])
@@ -142,6 +134,25 @@ export default class SearchInput extends Component {
             Alert.alert('Same Entry!', `You have already added '${this.state.inputValue}' before.`,
             {text: 'Check Again', onPress: () => {console.log('2nd alert box closed')}})
         }
+
+        Array.prototype.map.call(this.state.selectedIngredients, (ingredient) => {
+            const result = fetch('http://localhost:3000/ingredients/getByIngredientName', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ingredientName: ingredient,
+                })
+            })
+            .then(res=> res.json())
+            .then(res => {
+                const id = res[0]._id
+                this.setState(prevState => ({
+                    selectedIngredientIDs: [...prevState.selectedIngredientIDs, id]
+                }))
+            })
+            
+        });
+
     }
 
     displaySelectedIngredients = () => {
@@ -188,6 +199,47 @@ export default class SearchInput extends Component {
         }
         
     }
+
+    searchHandler = async () => {
+        
+        // Array.prototype.map.call(this.state.selectedIngredients, (ingredient) => {
+        //     const result = fetch('http://localhost:3000/ingredients/getByIngredientName', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({
+        //             ingredientName: ingredient,
+        //         })
+        //     })
+        //     .then(res=> res.json())
+        //     .then(res => {
+        //         const id = res[0]._id
+        //         this.setState(prevState => ({
+        //             selectedIngredientIDs: [...prevState.selectedIngredientIDs, id]
+        //         }))
+        //     })
+            
+        // });
+        const uniqueIDs = Array.prototype.filter.call(this.state.selectedIngredientIDs, (item, pos) => {
+            return this.state.selectedIngredientIDs.indexOf(item) == pos;
+        })
+
+        this.props.navigation.navigate('Show Foods', {ingredients: uniqueIDs})
+
+    }
+
+    componentDidMount = async () => {
+        this.setState({selectedIngredientIDs: []})
+        const ingredients = await fetch('http://localhost:3000/ingredients', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+        }).then(res=> res.json())
+        
+        ingredients.map(ingredient => {
+            this.setState(prevState => ({
+                ingredients: [...prevState.ingredients, ingredient]
+            }))
+        })
+    }
     
     render(){
         return(
@@ -207,7 +259,7 @@ export default class SearchInput extends Component {
                                         />
                                             
                                 <View style={styles.alignButtons}>
-                                    <TouchableOpacity style={this.state.searchToggle ? styles.searchButtonTO : styles.hide} onPress={this.addIngredientsHandler}>
+                                    <TouchableOpacity style={this.state.searchToggle ? styles.searchButtonTO : styles.hide} onPress={this.searchHandler}>
                                         <Image  
                                                 style={styles.searchButton}
                                                 source={require('./../../images/search.png')}

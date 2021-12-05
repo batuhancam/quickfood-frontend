@@ -23,6 +23,7 @@ import SelectIngredients from '../src/screens/SelectIngredients';
 import SelectCategories from '../src/screens/SelectCategories';
 import PreviewPost from '../src/screens/PreviewPost';
 import Favorites from '../src/screens/Favorites';
+import Categories from '../src/screens/Categories';
 
 const BottomTab = createBottomTabNavigator();
 const Tab = createStackNavigator();
@@ -121,10 +122,10 @@ export default function Navigator({navigation, route}) {
           }}
         />
         <BottomTab.Screen
-          name="Category"
-          component={Food}
+          name="Categories"
+          component={Categories}
           options={{
-            title: 'Category',
+            title: 'Categories',
             tabBarActiveTintColor:'#ff3f34',
             tabBarInactiveTintColor:'#a0a0a0',
             tabBarShowLabel: false,

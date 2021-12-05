@@ -40,7 +40,7 @@ componentDidMount = async () => {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     }).then(res=> res.json())
-    const foodCategories = []
+    let foodCategories = []
     categories.map((category, index)=> {
         foodCategories.push({
             id: index,

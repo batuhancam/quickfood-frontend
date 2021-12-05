@@ -24,9 +24,9 @@ import HTMLView from 'react-native-htmlview';
 import { SliderBox } from "react-native-image-slider-box";
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 
-import styles from '../style/Food.scss';
+import styles from '../style/ShowFood.scss';
 
-export default class Food extends Component {
+export default class ShowFood extends Component {
 
     constructor (props) {
       super(props);

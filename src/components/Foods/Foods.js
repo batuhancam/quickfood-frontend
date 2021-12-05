@@ -64,7 +64,7 @@ export default class Foods extends Component {
 
       this.focusListener = this.props.navigation.addListener('willFocus', () => {
         this.loadData();
-        //Put your Data loading function here instead of my this.loadData()
+
       });
       
     }
@@ -118,7 +118,8 @@ export default class Foods extends Component {
             return (
               <TouchableOpacity key={food._id} onPress={async ()=> {
                 AsyncStorage.setItem('foodID', food._id);
-                this.props.navigation.navigate('Food', {name: food.foodName})
+                console.log('clicked here');
+                this.props.navigation.navigate('Show Food', {name: food.foodName})
               }}>
                 <View style={styles.food} >
                     {foodImage ?
@@ -166,7 +167,6 @@ export default class Foods extends Component {
    
   
     render() {
-      console.log(this.props.allFoods)
       return (
         <ScrollView style={styles.container} > 
             {this.displayFoods()}
